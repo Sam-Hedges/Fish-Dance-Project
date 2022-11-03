@@ -89,13 +89,17 @@ Shader "Unlit/SobelFilter"
             half4 frag (Varyings input, out float depth : SV_Depth) : SV_Target 
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-                
+
+            	// Sobel Filter used to calucalte the outlines
                 float2 sobelData = sobel(input.uv);
                 float s = pow(abs(1 - saturate(sobelData.x)), _Power);
+            	
                 half4 col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
                 half4 d = SAMPLE_TEXTURE2D(_CameraDepthTexture, sampler_CameraDepthTexture, input.uv);
                 float x = ceil(SampleDepth(input.uv) - d.x);
 
+
+            	// This Posterizes the colour for a toon shaded effect
                 //col.a = x;
                 col = pow(abs(col), 0.4545);
                 float3 c = RgbToHsv(col);
@@ -109,7 +113,9 @@ Shader "Unlit/SobelFilter"
                 
                 s = lerp(1.0, s, ceil(sobelData.y - d.x));
                 depth = lerp(sobelData.y, SampleDepth(input.uv), s);
-                col.rgb *= s;
+
+				// Applies Outlines to the colour
+            	col.rgb *= s;
                 col.a += 1 - s;
 
                 
