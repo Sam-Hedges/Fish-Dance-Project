@@ -12,17 +12,26 @@ namespace PortfolioProject
 
         float speed;
 
+        float rightOfScreen;
+        float leftOfScreen;
+
         private void Awake()
         {
-            if(this.transform.position.x < -7.37f && this.transform.position.x > -11.66f)
+
+            var dist = (transform.position - Camera.main.transform.position).z;
+            leftOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, dist)).x;
+            rightOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, dist)).x;
+
+
+            if (this.transform.position.x == leftOfScreen)
             {
-                moveTowards = 9.6f;
+                moveTowards = rightOfScreen;
+            }
+            else if (this.transform.position.x == rightOfScreen)
+            {
+                moveTowards = leftOfScreen;
             }
 
-            else if (this.transform.position.x < 9.6f && this.transform.position.x > 6.25f)
-            {
-                moveTowards = -11.66f;
-            }
             reachedLocation = new Vector3(moveTowards, this.transform.position.y, this.transform.position.z);
             speed = Random.Range(0.02f, 0.08f);
         }
