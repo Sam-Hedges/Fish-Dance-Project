@@ -17,7 +17,7 @@ using UnityEngine;
 
             #region Public fields
 
-            public WaterVolumeBase WaterVolume = null;
+            public WaterVolumeBase _WaterVolume = null;
 
             #endregion
 
@@ -32,20 +32,20 @@ using UnityEngine;
             public float? GetHeight(Vector3 _position)
             {
                 // ensure a water volume
-                if (!WaterVolume)
+                if (!_WaterVolume)
                 {
                     return 0f;
                 }
 
                 // ensure a material
-                var renderer = WaterVolume.gameObject.GetComponent<MeshRenderer>();
+                var renderer = _WaterVolume.gameObject.GetComponent<MeshRenderer>();
                 if (!renderer || !renderer.sharedMaterial)
                 {
                     return 0f;
                 }
 
                 // replicate the shader logic, using parameters pulled from the specific material, to return the height at the specified position
-                var waterHeight = WaterVolume.GetHeight(_position);
+                var waterHeight = _WaterVolume.GetHeight(_position);
                 if (!waterHeight.HasValue)
                 {
                     return null;
