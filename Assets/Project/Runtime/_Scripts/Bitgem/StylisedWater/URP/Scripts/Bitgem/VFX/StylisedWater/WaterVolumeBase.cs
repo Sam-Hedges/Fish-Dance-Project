@@ -20,7 +20,7 @@ public class WaterVolumeBase : MonoBehaviour
 
     #region Flag lists
 
-        [System.Flags]
+        [System.Flags] // This allows multiple flags to be set within the editor concurrently
         public enum TileFace : int
         {
             NegX = 1,
@@ -63,6 +63,10 @@ public class WaterVolumeBase : MonoBehaviour
         private void ensureReferences()
         {
             // ensure a mesh filter
+            
+            
+            
+             
             if (meshFilter == null)
             {
                 mesh = null;
