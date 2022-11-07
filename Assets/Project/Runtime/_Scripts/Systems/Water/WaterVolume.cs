@@ -6,36 +6,47 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class WaterVolume : GenerateWaterVolume
 {
+    
+    private static WaterVolume instance = null;
+    public static WaterVolume Instance { get { return instance; } }
 
     private MeshRenderer meshRenderer;
+    private MeshFilter meshFilter;
+    
     public Vector3 Dimensions = Vector3.zero;
+    public GenerateWaterVolume _WaterVolume = null;
 
     private void Awake() {
         meshRenderer = GetComponent<MeshRenderer>();
+        meshFilter = GetComponent<MeshFilter>();
     }
 
-    /// <summary>
-    /// Returns the current height of the water mesh at <paramref name="_position"/>
-    /// </summary>
-    /// <param name="_position"></param>
-    /// <returns></returns>
     public float? GetHeight(Vector3 _position)
     {
-        // Ensure there's a material or return height as zero
-        Material currentMaterial = meshRenderer.sharedMaterial;
-        if (!currentMaterial) { return 0f; }
+        // ensure a water volume
+        if (!_WaterVolume)
+        {
+            return 0f;
+        }
+
+        // ensure a material
+        var renderer = GetComponent<MeshRenderer>();
+        if (!meshRenderer.sharedMaterial)
+        {
+            return 0f;
+        }
 
         // replicate the shader logic, using parameters pulled from the specific material, to return the height at the specified position
-        float? waterHeight = GetHeight(_position);
+        var waterHeight = GetHeight(_position);
         if (!waterHeight.HasValue)
         {
             return null;
         }
-        float _WaveFrequency = currentMaterial.GetFloat("_WaveFrequency");
-        float _WaveScale = currentMaterial.GetFloat("_WaveScale");
-        float _WaveSpeed = currentMaterial.GetFloat("_WaveSpeed");
-        float time = Time.time * _WaveSpeed;
-        float shaderOffset = (Mathf.Sin(_position.x * _WaveFrequency + time) + Mathf.Cos(_position.z * _WaveFrequency + time)) * _WaveScale;
+        var _WaveFrequency = renderer.sharedMaterial.GetFloat("_WaveFrequency");
+        var _WaveScale = renderer.sharedMaterial.GetFloat("_WaveScale");
+        var _WaveSpeed = renderer.sharedMaterial.GetFloat("_WaveSpeed");
+        var time = Time.time * _WaveSpeed;
+        var shaderOffset = (Mathf.Sin(_position.x * _WaveFrequency + time) + Mathf.Cos(_position.z * _WaveFrequency + time)) * _WaveScale;
         return waterHeight.Value + shaderOffset;
     }
 

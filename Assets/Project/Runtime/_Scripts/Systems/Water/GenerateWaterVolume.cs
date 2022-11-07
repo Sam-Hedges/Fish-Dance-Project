@@ -56,7 +56,7 @@ public class GenerateWaterVolume : MonoBehaviour
     /// <summary>
     /// Ensure there is a mesh filter componenet
     /// </summary>
-    private void ensureReferences()
+    private void InitializeReferences()
     {
 
         if (meshFilter == null)
@@ -85,7 +85,12 @@ public class GenerateWaterVolume : MonoBehaviour
 
     #region Public methods
 
-        public float? GetHeight(Vector3 _position)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_position"></param>
+        /// <returns></returns>
+        public float? GetHeight(Vector3 _position) // Return type can be null because there might be no mesh at _position
         {
             // convert the position to a tile
             var x = Mathf.FloorToInt((_position.x - transform.position.x + 0.5f) / TileSize);
@@ -115,17 +120,17 @@ public class GenerateWaterVolume : MonoBehaviour
         {
             Debug.Log("rebuilding water volume \"" + gameObject.name + "\"");
 
-            // ensure references to components before trying to use them
-            ensureReferences();
+            // Ensure references to components before trying to use them
+            InitializeReferences();
 
-            // delete any existing mesh
+            // Delete any existing mesh
             mesh.Clear();
 
             // allow any child class to generate the tiles to build from
             tiles = new bool[MAX_TILES_X, MAX_TILES_Y, MAX_TILES_Z];
             GenerateTiles(ref tiles);
 
-            // prepare buffers for the mesh data
+            // Prepares mesh buffers for the mesh data
             var vertices = new List<Vector3>();
             var normals = new List<Vector3>();
             var uvs = new List<Vector2>();
@@ -152,6 +157,7 @@ public class GenerateWaterVolume : MonoBehaviour
                         var y1 = y0 + TileSize;
                         var z0 = z * TileSize - 0.5f;
                         var z1 = z0 + TileSize;
+                        
                         var ux0 = x0 + transform.position.x;
                         var ux1 = x1 + transform.position.x;
                         var uy0 = y0 + transform.position.y;
@@ -341,7 +347,7 @@ public class GenerateWaterVolume : MonoBehaviour
 
             // update
             mesh.RecalculateBounds();
-            //mesh.RecalculateNormals();
+            mesh.RecalculateNormals();
             mesh.RecalculateTangents();
 
             meshFilter.sharedMesh = mesh;
