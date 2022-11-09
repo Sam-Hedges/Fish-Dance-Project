@@ -16,14 +16,14 @@ public class FishSpawning : MonoBehaviour
 
     public float waitTime;
 
-    public int direction;
-
     public Vector3 spawnLocation;
 
     float bottomOfScreen;
     float topOfScreen;
     float rightOfScreen;
     float leftOfScreen;
+
+    public static List<GameObject> fishAmount = new List<GameObject>();
 
     void Start()
     {
@@ -54,21 +54,25 @@ public class FishSpawning : MonoBehaviour
         switch (this.side)
         {
             case 0:
-                this.direction = 0;
                 this.xSpawn = leftOfScreen;
                 break;
             case 1:
-                this.direction = 180;
                 this.xSpawn = rightOfScreen;
                 break;
         }
 
         this.spawnLocation = new Vector3(this.xSpawn, this.ySpawn, this.zSpawn);
-        Quaternion facing = new Quaternion(0, direction, 0, 0);
+        Quaternion facing = new Quaternion(0, 0, 0, 0);
 
         this.scale = Random.Range(0.4f, 1.5f);
         newFish = Instantiate(fish, spawnLocation, facing);
+
+        //random size for fish
         newFish.transform.localScale = Vector3.one * scale;
+
+        //random colour for fish
         newFish.GetComponent<SpriteRenderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+
+        FishSpawning.fishAmount.Add(newFish);
     }
 }
