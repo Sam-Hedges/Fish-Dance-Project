@@ -14,7 +14,7 @@ public class FishSpawning : MonoBehaviour
 
     public float scale;
 
-    public float waitTime;
+    public static float waitTime;
 
     public Vector3 spawnLocation;
 
@@ -62,10 +62,9 @@ public class FishSpawning : MonoBehaviour
         }
 
         this.spawnLocation = new Vector3(this.xSpawn, this.ySpawn, this.zSpawn);
-        Quaternion facing = new Quaternion(0, 0, 0, 0);
 
         this.scale = Random.Range(0.4f, 1.5f);
-        newFish = Instantiate(fish, spawnLocation, facing);
+        newFish = Instantiate(fish, spawnLocation, Quaternion.identity);
 
         //random size for fish
         newFish.transform.localScale = Vector3.one * scale;

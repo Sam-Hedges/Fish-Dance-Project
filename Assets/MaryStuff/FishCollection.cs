@@ -13,6 +13,43 @@ namespace PortfolioProject
 
         float powerUpTimer = 10;
 
+        bool magnet;
+        bool boost;
+
+        public AudioSource collection;
+
+        public List<GameObject> scrolls = new List<GameObject>();
+
+        private void Update()
+        {
+            if (magnet)
+            {
+                foreach (var item in FishSpawning.fishAmount)
+                {
+                    item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z);
+                }
+            }
+            if (boost)
+            {
+                foreach (var item in FishSpawning.fishAmount)
+                {
+                    item.GetComponent<FishMove>().speed = item.GetComponent<FishMove>().speed * 2.5f;
+                }
+                foreach (var item in scrolls)
+                {
+                    item.GetComponent<WaterScrollEffect>().ySpeed = 0.6f;
+                }
+                boost = false;
+            }
+            else if (PowerUpSpawning.canSpawn)
+            {
+                foreach (var item in scrolls)
+                {
+                    item.GetComponent<WaterScrollEffect>().ySpeed = 0.2f;
+                }
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if(other.tag == "Fish")
@@ -22,7 +59,16 @@ namespace PortfolioProject
             }
             if(other.tag == "Magnet")
             {
-                StartCoroutine(MagnetPowerUp());
+                StartCoroutine(PowerUp("magnet"));
+                collection.Play();
+                Destroy(other.gameObject);
+            }
+            if (other.tag == "Boost")
+            {
+                StartCoroutine(PowerUp("boost"));
+                FishSpawning.waitTime = FishSpawning.waitTime / 2.5f;
+                collection.Play();
+                Destroy(other.gameObject);
             }
         }
 
@@ -35,15 +81,33 @@ namespace PortfolioProject
             Destroy(fish);
         }
 
-        IEnumerator MagnetPowerUp()
+        IEnumerator PowerUp(string powerUpType)
         {
+            switch (powerUpType)
+            {
+                case "magnet":
+                    this.magnet = true;
+                    break;
+                case "boost":
+                    this.boost = true;
+                    break;
+            }
+
+            Debug.Log(this.magnet);
             for (int i = 0; i < powerUpTimer; i++)
             {
-                foreach (var item in FishSpawning.fishAmount)
-                {
-                    item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z); ;
-                }
                 yield return new WaitForSeconds(1);
+            }
+            PowerUpSpawning.canSpawn = true;
+
+            switch (powerUpType)
+            {
+                case "magnet":
+                    this.magnet = false;
+                    break;
+                case "boost":
+                    this.boost = false;
+                    break;
             }
         }
     }

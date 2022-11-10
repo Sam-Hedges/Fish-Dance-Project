@@ -10,7 +10,7 @@ namespace PortfolioProject
 
         public float moveTowards;
 
-        float speed;
+        public float speed;
 
         float rightOfScreen;
         float leftOfScreen;
