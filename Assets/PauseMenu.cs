@@ -9,34 +9,13 @@ namespace PortfolioProject
     {
         public static bool GamePaused = false;
 
+        public GameObject ui;
         public GameObject pauseMenuUI;
+        public GameObject settingsMenuUI;
 
-        // Update is called once per frame
-        void Update()
+        public void Pause()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))  //change this to a UI buttoon press
-            {
-                //enables the resume function when game is paused and when it isnt paused, allows the pause function
-                if (GamePaused)
-                {
-                    Resumetemp();
-                }
-                else
-                {
-                    Pausetemp();
-                }
-            }
-        }
-
-        void Resumetemp()
-        {
-            pauseMenuUI.SetActive(false);
-            Time.timeScale = 1f;
-            GamePaused = false;
-        }
-
-        void Pausetemp()
-        {
+            ui.SetActive(false);
             pauseMenuUI.SetActive(true);
             Time.timeScale = 0f;
             GamePaused = true;
@@ -44,7 +23,7 @@ namespace PortfolioProject
 
         public void Resume()
         {
-            Debug.Log("Resume button");
+            ui.SetActive(true);
             pauseMenuUI.SetActive(false);
             Time.timeScale = 1f;
             GamePaused = false;
@@ -52,13 +31,19 @@ namespace PortfolioProject
 
         public void Settings()
         {
-            Debug.Log("Settings");
+            pauseMenuUI.SetActive(false);
+            settingsMenuUI.SetActive(true);
         }
 
         public void QuitGame()
         {
-            Debug.Log("Quitting game...");
             Application.Quit();
+        }
+
+        public void Back()
+        {
+            pauseMenuUI.SetActive(true);
+            settingsMenuUI.SetActive(false);
         }
     }
 }
