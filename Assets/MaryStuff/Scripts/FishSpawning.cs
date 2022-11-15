@@ -15,6 +15,8 @@ public class FishSpawning : MonoBehaviour
     public float scale;
 
     public static float waitTime;
+    public static float lowerWait = 0.5f;
+    public static float higherWait = 3f;
 
     public Vector3 spawnLocation;
 
@@ -39,7 +41,7 @@ public class FishSpawning : MonoBehaviour
 
     IEnumerator WaitForFish()
     {
-        waitTime = Random.Range(0.5f, 3);
+        waitTime = Random.Range(lowerWait, higherWait);
         yield return new WaitForSeconds(waitTime);
         Spawn();
         StartCoroutine(WaitForFish());
