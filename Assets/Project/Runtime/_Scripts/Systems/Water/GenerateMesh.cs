@@ -62,7 +62,7 @@ public class GenerateMesh : MonoBehaviour
         // Delete any other mesh
         mesh.Clear();
         
-        // 
+        // Creates a 3D array of booleans to represent the vertices of the mesh
         tiles = new bool[dimensions.x, dimensions.y, dimensions.z];
         for (int x = 0; x < dimensions.x; x++) {
             for (int y = 0; y < dimensions.y; y++) {
@@ -124,10 +124,10 @@ public class GenerateMesh : MonoBehaviour
                     bool posZ = z == dimensions.z - 1 || !tiles[x, y, z + 1];
 
                     // Check to see if the current vertex is on the edge
-                    bool negXnegZ = !negX && !negZ && x > 0 && z > 0;
-                    bool negXposZ = !negX && !posZ && x > 0 && z < dimensions.z;
-                    bool posXposZ = !posX && !posZ && x < dimensions.x && z < dimensions.z;
-                    bool posXnegZ = !posX && !negZ && x < dimensions.x && z > 0;
+                    bool negXnegZ = !negX && !negZ && x > 0 && z > 0 && !tiles[x - 1, y, z - 1];
+                    bool negXposZ = !negX && !posZ && x > 0 && z < dimensions.z && !tiles[x - 1, y, z + 1];
+                    bool posXposZ = !posX && !posZ && x < dimensions.x && z < dimensions.z && !tiles[x + 1, y, z + 1];
+                    bool posXnegZ = !posX && !negZ && x < dimensions.x && z > 0 && !tiles[x + 1, y, z - 1];
                     
                     // 
                     bool generateFaceNegX = negX && (includeFaces & TileFace.NegX) == TileFace.NegX;
@@ -304,33 +304,17 @@ public class GenerateMesh : MonoBehaviour
             }
         }
         
-        /*
-        mesh.vertices = new Vector3[] {
-            Vector3.zero, Vector3.right, Vector3.up, new Vector3(1f, 1f)
-        };
         
-        mesh.triangles = new int[] {
-            0, 2, 1, 1, 2, 3
-        };
-        
-        mesh.normals = new Vector3[] {
-            Vector3.back, Vector3.back, Vector3.back, Vector3.back
-        };
-        
-        mesh.uv = new Vector2[] {
-            Vector2.zero, Vector2.right, Vector2.up, Vector2.one
-        };
-        */
-        
-        // apply the buffers
+        // Apply the buffers
         mesh.SetVertices(vertices);
         mesh.SetNormals(normals);
         mesh.SetUVs(0, uvs);
+        mesh.SetColors(colors);
         mesh.SetTriangles(triangles, 0);
 
         // update
         mesh.RecalculateBounds();
-        //mesh.RecalculateNormals();
+        mesh.RecalculateNormals();
         mesh.RecalculateTangents();
 
         // Assign the mesh to the mesh filter
