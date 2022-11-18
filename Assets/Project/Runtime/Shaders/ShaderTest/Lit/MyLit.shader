@@ -4,9 +4,10 @@ Shader "SamHedges/MyLit" {
 		Properties {
 			[Header(Surface Options)]
 			// [MainColor] & [MainTexture] allows Material.color & Material.mainTexture in C# to use the correct properties
-			[MainTexture] _ColourMap("Albedo", 2D) = "white" {}
-			[MainColor] _ColourTint("Colour", Color) = (1,1,1,1)
+			_ColourMap("Albedo", 2D) = "white" {}
+			_ColourTint("Colour", Color) = (1,1,1,1)
 		 	_Smoothness("Smoothness", Float) = 0
+			
 			[Header(Wave Options)]
 			_WaveFrequency("Frequency", Float) = 0
 			_WaveAmplitude("Amplitude", Float) = 0

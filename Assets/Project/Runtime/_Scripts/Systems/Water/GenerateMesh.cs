@@ -8,9 +8,7 @@ using Water.Attribute;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class GenerateMesh : MonoBehaviour
 {
-    public GameObject debugPoint;
-    public bool debugged;
-    
+
     private MeshFilter meshFilter;
     private bool built = false;
     private Mesh mesh;
@@ -18,7 +16,12 @@ public class GenerateMesh : MonoBehaviour
     
     [SerializeField] private Vector3Int dimensions = Vector3Int.one;
     [SerializeField] private float tileScale = 1f;
-    [SerializeField] private float uvScale = 1f;
+    [SerializeField] private int uvScale = 1;
+    private float UVScale
+    {
+        get => 1f / uvScale;
+        set { uvScale = (int)value; }
+    }
     
     [Flags] // This allows multiple flags to be set within the editor concurrently
     public enum TileFace : int
@@ -46,7 +49,8 @@ public class GenerateMesh : MonoBehaviour
         }
         
     }
-
+    
+    // Called when the script is loaded or a value is changed in the inspector (Called in the editor only)
     private void OnValidate() {
         mesh = new Mesh {
             name = "Procedural Mesh"
@@ -93,7 +97,7 @@ public class GenerateMesh : MonoBehaviour
             for (int y = 0; y < dimensions.y; y++) {
                 
                 for (int z = 0; z < dimensions.z; z++) {
-                    
+
                     // Calculate the tile position
                     float x0 = x * tileScale;
                     float x1 = x0 + tileScale;
@@ -106,12 +110,12 @@ public class GenerateMesh : MonoBehaviour
                     // *UVScale is used to scale the UV coordinates
                     // /TileScale is used to scale the UV coordinates to the tile size
                     Vector3 position = transform.position;
-                    float ux0 = x0 * uvScale / tileScale + position.x;
-                    float ux1 = x1 * uvScale / tileScale + position.x;
-                    float uy0 = y0 * uvScale / tileScale + position.y;
-                    float uy1 = y1 * uvScale / tileScale + position.y;
-                    float uz0 = z0 * uvScale / tileScale + position.z;
-                    float uz1 = z1 * uvScale / tileScale + position.z;
+                    float ux0 = x0 * UVScale / tileScale + position.x;
+                    float ux1 = x1 * UVScale / tileScale + position.x;
+                    float uy0 = y0 * UVScale / tileScale + position.y;
+                    float uy1 = y1 * UVScale / tileScale + position.y;
+                    float uz0 = z0 * UVScale / tileScale + position.z;
+                    float uz1 = z1 * UVScale / tileScale + position.z;
                     
                     // Check to see if current the vertex is an edge
                     // Check if the current vertex is on the negative edge
@@ -150,9 +154,7 @@ public class GenerateMesh : MonoBehaviour
                     
                     // Create the top face
                     if (y == dimensions.y - 1) {
-                        
-                        if (!debugged) { SpawnDebugPoints(x0, x1, y0, y1, z0, z1); }
-                        
+
                         // Add the vertices
                         // Y1 is used so the vertices are placed on the top of the tile
                         vertices.Add(new Vector3(x0, y1, z0));
@@ -209,12 +211,13 @@ public class GenerateMesh : MonoBehaviour
                         Vector3 v3 = new Vector3(x0, y1, z0);
                         Vector3 v4 = new Vector3(x0, y0, z0);
                         Vector3 n = new Vector3(-1, 0, 0);
-                        Vector2 uv1 = new Vector2(uy1, uz0);
-                        Vector2 uv2 = new Vector2(uy1, uz1);
-                        Vector2 uv3 = new Vector2(uy0, uz1);
-                        Vector2 uv4 = new Vector2(uy0, uz0);
+                        Vector2 uv1 = new Vector2(uz1, uy0);
+                        Vector2 uv2 = new Vector2(uz1, uy1);
+                        Vector2 uv3 = new Vector2(uz0, uy1);
+                        Vector2 uv4 = new Vector2(uz0, uy0);
 
                         GenerateFace(v1, v2, v3, v4, n, uv1, uv2, uv3, uv4);
+                        
                     }
                     if (generateFacePosX) {
                         
@@ -261,7 +264,7 @@ public class GenerateMesh : MonoBehaviour
                         
                         GenerateFace(v1, v2, v3, v4, n, uv1, uv2, uv3, uv4);
                     }
-                    
+
                     /// <summary>
                     /// Local function to generate the side faces used to reduce code duplication
                     /// </summary>
@@ -274,11 +277,10 @@ public class GenerateMesh : MonoBehaviour
                         vertices.Add(v4);
                         
                         // Add the normals
-                        normals.Add(n);
-                        normals.Add(n);
-                        normals.Add(n);
-                        normals.Add(n);
-                        
+                        for (int i = 0; i < 4; i++) {
+                            normals.Add(n);
+                        }
+
                         // Add the UV coordinates
                         uvs.Add(uv1);
                         uvs.Add(uv2);
@@ -322,22 +324,5 @@ public class GenerateMesh : MonoBehaviour
         
         // Flag mesh as built
         built = true;
-    }
-    
-    
-    void SpawnDebugPoints(float x0, float x1, float y0, float y1, float z0, float z1) {
-        
-        GameObject obj;
-        
-        obj = Instantiate(debugPoint, new Vector3(x0, y1, z0), Quaternion.identity);
-        obj.name = "Debug Point 1";
-        obj = Instantiate(debugPoint, new Vector3(x0, y1, z1), Quaternion.identity);
-        obj.name = "Debug Point 2";
-        obj = Instantiate(debugPoint, new Vector3(x1, y1, z1), Quaternion.identity);
-        obj.name = "Debug Point 3";
-        obj = Instantiate(debugPoint, new Vector3(x1, y1, z0), Quaternion.identity);
-        obj.name = "Debug Point 4";
-
-        debugged = true;
     }
 }
