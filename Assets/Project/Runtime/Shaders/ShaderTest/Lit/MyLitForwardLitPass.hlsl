@@ -1,5 +1,7 @@
 ﻿// Pull in URP library functions and our own common functions
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+// Contains functions used to sample the depth texture
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
 
 // This file contains the vertex and fragment functions for the forward lit pass
 // This is the shader pass that computes visible colours for a material
@@ -8,6 +10,12 @@ TEXTURE2D(_ColourMap); SAMPLER(sampler_ColourMap);
 float4 _ColourMap_ST; // Automatically set by Unity. Used in TRANSFORM_TEX to apply UV tiling
 float4 _ColourTint;
 float _Smoothness;
+TEXTURE2D(_NormalMap); SAMPLER(sampler_NormalMap);
+float4 _NormalMap_ST; // Automatically set by Unity. Used in TRANSFORM_TEX to apply UV tiling
+float _BumpStrength;
+float _DetailScale;
+float _DetailStrength;
+float _ScrollSpeed;
 
 // Wave parameters
 float _WaveAmplitude;
@@ -38,6 +46,7 @@ struct Interpolators
     float2 uv : TEXCOORD0; // Material texture UVs
     float3 normalWS : TEXCOORD1; // Normal in world space
     float3 positionWS : TEXCOORD2;
+    float4 screenPosition : TEXCOORD3;
 };
 
 float3 CalculateWave(float3 positionOS)
@@ -55,6 +64,22 @@ float3 CalculateWave(float3 positionOS)
     float finalWavePositon = positionOS.y + waveScaled * steppedPosY;
     
     return float3(positionOS.x, finalWavePositon, positionOS.z);
+}
+
+float3 NormalStrength(float3 In, float Strength)
+{
+    return float3(In.rg * Strength, lerp(1, In.b, saturate(Strength)));
+}
+
+float3 NormalLerp(float3 A, float3 B, float ratio)
+{
+    float3 blend = normalize(float3(A.rg + B.rg, A.b * B.b));
+    return lerp(lerp(A, blend, saturate(ratio * 2)), B, saturate((ratio - 0.5) * 2));
+}
+
+float2 ScaleFloat2(float2 In, float Scale)
+{
+    return float2(In.x * Scale, In.y * Scale);
 }
 
 // The vertex function which runs for each vertex on the mesh.
@@ -77,6 +102,7 @@ Interpolators Vertex(Attributes input)
     output.uv = TRANSFORM_TEX(input.uv, _ColourMap);
     output.normalWS = normInputs.normalWS;
     output.positionWS = posnInputs.positionWS;
+    output.screenPosition = ComputeScreenPos(output.positionCS);
     
     return output;
 }
@@ -86,7 +112,28 @@ Interpolators Vertex(Attributes input)
 // The function is tagged with a semantic so that the return value is interpreted in a specific way
 float4 Fragment(Interpolators input) : SV_TARGET
 {
-    float2 uv = input.uv; 
+    float2 uv = input.uv;
+
+    // SampleSceneDepth function with the Screen coords returns the Raw Scene Depth value
+    float rawDepth = SampleSceneDepth(input.screenPosition.xy / input.screenPosition.w);
+    // LinearEyeDepth function converts the Raw Scene Depth value to Linear Eye Depth
+    float sceneEyeDepth = LinearEyeDepth(rawDepth, _ZBufferParams);
+    // Final scene depth
+    float sceneDepth = sceneEyeDepth - input.screenPosition.w;
+
+    // UV's scaling and scrolling
+    float2 uvScaled = ScaleFloat2(uv.xy, input.normalWS.y * 0.5 + 1);
+    float2 scrolling = ScaleFloat2(float2(_Time.y, _Time.y), _ScrollSpeed);
+    float uv1 = uvScaled + scrolling * float2(-0.1, 0.035);
+    float uv2 = ScaleFloat2(uvScaled, _DetailScale) + scrolling * float2(-0.01, 0.05);
+
+    // Normals
+    float4 normal1 = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, uv1);
+    float4 normal2 = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, uv2);
+    float3 penultimateNormal = NormalLerp(normal1, normal2, 1 - _DetailStrength);
+    float strength1 = 1 - saturate((1 - input.normalWS.y) * 0.5);
+    float strength2 = saturate(input.normalWS.y + 0.75);
+    float3 finalNormal = NormalStrength(NormalStrength(NormalStrength(penultimateNormal, strength1), _BumpStrength), strength2);
     
     // Sample the colour map
     float4 colourSample = SAMPLE_TEXTURE2D(_ColourMap, sampler_ColourMap, uv);
@@ -104,6 +151,7 @@ float4 Fragment(Interpolators input) : SV_TARGET
     surfaceInput.alpha = colourSample.a * _ColourTint.a;
     surfaceInput.specular = 1; // Set Highlights to white
     surfaceInput.smoothness = _Smoothness;
+    surfaceInput.normalTS = finalNormal;
     lightingInput.positionWS = input.positionWS;
     lightingInput.viewDirectionWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
     lightingInput.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
@@ -118,7 +166,7 @@ float4 Fragment(Interpolators input) : SV_TARGET
 
     // Apply Ambient Lighting
     float3 ambientColour = float3(unity_SHAr.w, unity_SHAg.w, unity_SHAb.w);
-    finalColour.rgb += ambientColour * 2 * colourSample;
-    
+    //finalColour.rgb += ambientColour * 2 * colourSample;
+    finalColour.rgb = finalNormal;
     return finalColour;
 }

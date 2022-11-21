@@ -7,6 +7,11 @@ Shader "SamHedges/MyLit" {
 			_ColourMap("Albedo", 2D) = "white" {}
 			_ColourTint("Colour", Color) = (1,1,1,1)
 		 	_Smoothness("Smoothness", Float) = 0
+			_NormalMap("Normal Map", 2D) = "bump" {}
+			_BumpStrength("Bump Strength", Float) = 0.5
+			_DetailScale("Detail Scale", Float) = 0.2
+			_DetailStrength("Detail Strength", Range(0,1)) = 0.2
+			_ScrollSpeed("Scroll Speed", Float) = 1
 			
 			[Header(Wave Options)]
 			_WaveFrequency("Frequency", Float) = 0
