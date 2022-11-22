@@ -124,12 +124,12 @@ float4 Fragment(Interpolators input) : SV_TARGET
     // UV's scaling and scrolling
     float2 uvScaled = ScaleFloat2(uv.xy, input.normalWS.y * 0.5 + 1);
     float2 scrolling = ScaleFloat2(float2(_Time.y, _Time.y), _ScrollSpeed);
-    float uv1 = uvScaled + scrolling * float2(-0.1, 0.035);
-    float uv2 = ScaleFloat2(uvScaled, _DetailScale) + scrolling * float2(-0.01, 0.05);
+    float2 uv1 = uvScaled + scrolling * float2(-0.1, 0.035);
+    float2 uv2 = ScaleFloat2(uvScaled, _DetailScale) + scrolling * float2(-0.01, 0.05);
 
     // Normals
-    float4 normal1 = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, uv1);
-    float4 normal2 = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, uv2);
+    float3 normal1 = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, uv1));
+    float3 normal2 = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, uv2));
     float3 penultimateNormal = NormalLerp(normal1, normal2, 1 - _DetailStrength);
     float strength1 = 1 - saturate((1 - input.normalWS.y) * 0.5);
     float strength2 = saturate(input.normalWS.y + 0.75);
@@ -151,7 +151,7 @@ float4 Fragment(Interpolators input) : SV_TARGET
     surfaceInput.alpha = colourSample.a * _ColourTint.a;
     surfaceInput.specular = 1; // Set Highlights to white
     surfaceInput.smoothness = _Smoothness;
-    surfaceInput.normalTS = finalNormal;
+    surfaceInput.normalTS = normalize(finalNormal);
     lightingInput.positionWS = input.positionWS;
     lightingInput.viewDirectionWS = GetWorldSpaceNormalizeViewDir(input.positionWS);
     lightingInput.shadowCoord = TransformWorldToShadowCoord(input.positionWS);
@@ -159,14 +159,14 @@ float4 Fragment(Interpolators input) : SV_TARGET
     // values, and for lighting to look its best all normal vectors must have a length of one.
     // Hence the Normalize method, which can be slow, since it has an expensive square root calculation
     // but I think this step is worth the performance cost for smoother lighting. (especially noticeable on specular highlights)
+    //lightingInput.normalWS = UnityObjectToWorldNormal(normalize(finalNormal);
     lightingInput.normalWS = normalize(input.normalWS);
     
     // Computes a standard lighting algorithm called the Blinn-Phong lighting model
-    float4 finalColour = UniversalFragmentBlinnPhong(lightingInput, surfaceInput);
+    float4 finalColour = UniversalFragmentPBR(lightingInput, surfaceInput);
 
     // Apply Ambient Lighting
     float3 ambientColour = float3(unity_SHAr.w, unity_SHAg.w, unity_SHAb.w);
-    //finalColour.rgb += ambientColour * 2 * colourSample;
-    finalColour.rgb = finalNormal;
+    finalColour.rgb += ambientColour * 2 * colourSample;
     return finalColour;
 }

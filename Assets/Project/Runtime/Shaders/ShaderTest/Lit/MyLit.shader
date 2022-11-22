@@ -1,4 +1,4 @@
-Shader "SamHedges/MyLit" {
+Shader "SamHedges/Water" {
 	
 	// Properties are options set per material, exposed by the material inspector
 		Properties {
