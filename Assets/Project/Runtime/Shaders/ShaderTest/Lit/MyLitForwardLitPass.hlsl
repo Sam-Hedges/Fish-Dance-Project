@@ -2,6 +2,8 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 // Contains functions used to sample the depth texture
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
+// Used to pre-define methods that are shared across multiple shader passes
+#include "MyLitCore.hlsl"
 
 // This file contains the vertex and fragment functions for the forward lit pass
 // This is the shader pass that computes visible colours for a material
@@ -49,23 +51,6 @@ struct Interpolators
     float4 screenPosition : TEXCOORD3;
 };
 
-float3 CalculateWave(float3 positionOS)
-{
-    float3 positionWS = GetVertexPositionInputs(positionOS).positionWS;
-    
-    float waveMovement = _Time.y * _WaveSpeed;
-    
-    float waveoffset = sin(waveMovement + _WaveFrequency * positionWS.x) + cos(waveMovement + _WaveFrequency * positionWS.z);
-
-    float waveScaled = waveoffset * _WaveAmplitude;
-
-    float steppedPosY = step(0.5, positionOS.y);
-
-    float finalWavePositon = positionOS.y + waveScaled * steppedPosY;
-    
-    return float3(positionOS.x, finalWavePositon, positionOS.z);
-}
-
 float3 NormalStrength(float3 In, float Strength)
 {
     return float3(In.rg * Strength, lerp(1, In.b, saturate(Strength)));
@@ -92,7 +77,7 @@ Interpolators Vertex(Attributes input)
     // These helper functions, found in URP/ShaderLib/ShaderVariablesFunctions.hlsl
     // transform object space values into world and clip space
     // CalulateWaves is a custom function that calculates the wave movement
-    float3 waveVertexPosition = CalculateWave(input.positionOS);
+    float3 waveVertexPosition = CalculateWave(input.positionOS, _WaveSpeed, _WaveFrequency, _WaveAmplitude);
     VertexPositionInputs posnInputs = GetVertexPositionInputs(waveVertexPosition);
     VertexNormalInputs normInputs = GetVertexNormalInputs(input.normalOS);
     
@@ -167,6 +152,6 @@ float4 Fragment(Interpolators input) : SV_TARGET
 
     // Apply Ambient Lighting
     float3 ambientColour = float3(unity_SHAr.w, unity_SHAg.w, unity_SHAb.w);
-    finalColour.rgb += ambientColour * 2 * colourSample;
+    finalColour.rgb += ambientColour * 2 * colourSample - colourSample;
     return finalColour;
 }

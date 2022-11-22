@@ -19,6 +19,7 @@ Shader "SamHedges/Water" {
 			_WaveSpeed("Speed", Float) = 0
 		}
 	
+		
 	// Sub-shaders allow for different behaviour and options for different pipelines and platforms
 	Subshader {
 		// Tags are shared by all passed in this subshader
