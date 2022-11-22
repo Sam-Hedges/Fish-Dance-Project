@@ -120,7 +120,7 @@ Material:
     - _OcclusionStrength: 1
     - _PixelDensity: 4.45
     - _Poseterize: 0
-    - _PosterizationCount: 6
+    - _PosterizationCount: 100
     - _Power: 100
     - _QueueOffset: 0
     - _Raw: 0

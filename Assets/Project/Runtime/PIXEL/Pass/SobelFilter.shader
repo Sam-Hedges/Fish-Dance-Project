@@ -100,7 +100,7 @@ Shader "Unlit/SobelFilter"
 
 
             	// This Posterizes the colour for a toon shaded effect
-                //col.a = x;
+                col.a = x;
                 col = pow(abs(col), 0.4545);
                 float3 c = RgbToHsv(col);
                 c.z = round(c.z * _PosterizationCount) / _PosterizationCount;
