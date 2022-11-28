@@ -151,8 +151,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83365919}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13, y: -3.9348843, z: 0}
-  m_LocalScale: {x: 1.1883583, y: 0.5527247, z: 1.1883583}
+  m_LocalPosition: {x: 0.13, y: -3.9348853, z: 0}
+  m_LocalScale: {x: 1.1883583, y: 0.5527246, z: 1.1883583}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1738897093}
@@ -401,6 +401,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishSpawning: {fileID: 156914586}
+  fishCollection: {fileID: 83365922}
+  rod: {fileID: 776270573}
+  wall: {fileID: 1036667431}
+  canFishSpawn: 0
+  spawnNewWalls: 0
+  walls: []
 --- !u!1 &168512300
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,7 +988,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459522678}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.38, y: 0.09, z: -1.617547}
+  m_LocalPosition: {x: 7.471122, y: -5.59, z: -4.88}
   m_LocalScale: {x: 4.5973177, y: 10.151013, z: 1.1986449}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1002,6 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ySpeed: 0.11
+  startFishing: {fileID: 156914588}
 --- !u!65 &459522681
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1386,7 +1393,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776270573}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13, y: 5.72, z: -3.44}
+  m_LocalPosition: {x: -0.13, y: 16.01, z: -3.44}
   m_LocalScale: {x: 0.8076503, y: 0.8076503, z: 0.8076503}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1825,7 +1832,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1036667431}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.6888785, y: 0.91, z: -5.182453}
+  m_LocalPosition: {x: -0.78, y: 6.5, z: -1.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2416,7 +2423,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273288138}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.62, y: 0.09, z: -1.617547}
+  m_LocalPosition: {x: -6.528878, y: -5.59, z: -4.88}
   m_LocalScale: {x: 4.5973177, y: 10.151013, z: 1.1986449}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2499,6 +2506,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ySpeed: 0.11
+  startFishing: {fileID: 156914588}
 --- !u!1 &1486744475
 GameObject:
   m_ObjectHideFlags: 0
@@ -3089,7 +3097,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834117923}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.73, y: 0.3, z: 9.61}
+  m_LocalPosition: {x: 0.82112145, y: -4.8599997, z: 6.3475466}
   m_LocalScale: {x: 10.365416, y: 11.358598, z: 1.7983272}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3172,6 +3180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ySpeed: 0.11
+  startFishing: {fileID: 156914588}
 --- !u!1 &1838393886
 GameObject:
   m_ObjectHideFlags: 0

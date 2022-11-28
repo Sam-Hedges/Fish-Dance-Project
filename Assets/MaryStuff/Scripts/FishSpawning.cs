@@ -20,8 +20,8 @@ public class FishSpawning : MonoBehaviour
 
     public Vector3 spawnLocation;
 
-    float bottomOfScreen;
-    float topOfScreen;
+    public float bottomOfScreen;
+    public float topOfScreen;
     float rightOfScreen;
     float leftOfScreen;
 
@@ -32,8 +32,6 @@ public class FishSpawning : MonoBehaviour
         var dist = (transform.position - Camera.main.transform.position).z;
         leftOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, dist)).x;
         rightOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, dist)).x;
-        bottomOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, dist)).y;
-        topOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, dist)).y; 
     }
 
     public IEnumerator WaitForFish()
