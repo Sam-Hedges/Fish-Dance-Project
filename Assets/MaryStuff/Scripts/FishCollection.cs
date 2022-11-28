@@ -16,6 +16,11 @@ namespace PortfolioProject
         bool magnet;
         bool boost;
 
+        private int fishAmount = 4;
+        public int currentFishAmount;
+        public float rodLength = 5;
+        public List<GameObject> collectedFish = new List<GameObject>();
+
         public AudioSource collection;
 
         public List<GameObject> scrolls = new List<GameObject>();
@@ -48,6 +53,24 @@ namespace PortfolioProject
                     item.GetComponent<WaterScrollEffect>().ySpeed = 0.2f;
                 }
             }
+
+            if (collectedFish != null)
+            {
+                foreach (var item in collectedFish)
+                {
+                    item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z); //so the fish follows the rod to the top
+                }
+
+                if (currentFishAmount == fishAmount)
+                {
+                    foreach (var item in collectedFish)
+                    {
+                        CollectFish(item);
+                    }
+                    collectedFish.Clear();
+                    currentFishAmount = 0;
+                }
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -55,7 +78,10 @@ namespace PortfolioProject
             if(other.tag == "Fish")
             {
                 fishSize = other.transform.localScale.z;
-                CollectFish(other.gameObject);
+                currentFishAmount++;
+                other.GetComponent<Collider2D>().enabled = false; //this is so the fish can only add 1 to the counter when collided with
+                other.GetComponent<FishMove>().collected = true;
+                collectedFish.Add(other.gameObject);
             }
             if(other.tag == "Magnet")
             {
@@ -72,10 +98,10 @@ namespace PortfolioProject
             }
         }
 
-        //tempoary function to get the price of the fish (which will happen at the end of the dance battle)
+        //gets the price of the fish and sells it
         public void CollectFish(GameObject fish)
         {
-            goldAmount += (10 * fishSize);
+            goldAmount += ((10 * fishSize) * (rodLength / 10));
             goldDisplay.text = goldAmount.ToString("£0");
             FishSpawning.fishAmount.Remove(fish);
             Destroy(fish);

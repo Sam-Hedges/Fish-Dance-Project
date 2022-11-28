@@ -15,6 +15,8 @@ namespace PortfolioProject
         float rightOfScreen;
         float leftOfScreen;
 
+        public bool collected = false;
+
         private void Awake()
         {
 
@@ -41,7 +43,7 @@ namespace PortfolioProject
             this.transform.position = Vector3.MoveTowards(this.transform.position, this.reachedLocation, this.speed);
             transform.right = reachedLocation - transform.position;
 
-            if (this.transform.position == reachedLocation)
+            if (this.transform.position == reachedLocation && !collected)
             {
                 FishSpawning.fishAmount.Remove(this.gameObject);
                 Destroy(this.gameObject);
