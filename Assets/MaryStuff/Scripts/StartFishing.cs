@@ -95,6 +95,8 @@ namespace PortfolioProject
                         wallSpawnPos = new Vector3(newWall.transform.position.x, newWall.transform.position.y - 11.36f, newWall.transform.position.z); //spawns it below the last wall
                     }
                 }
+                fishSpawning.topOfScreen = walls[0].transform.position.y; //the very top of all the walls together
+                fishSpawning.bottomOfScreen = walls[walls.Count - 1].transform.position.y - 11.36f; //the bottom of the last wall in the array
                 MoveWallsDown();
             }
         }
@@ -106,10 +108,8 @@ namespace PortfolioProject
                 foreach (var item in walls)
                 {
                     Vector3 wallMovePos = new Vector3(item.transform.position.x, item.transform.position.y + (11.36f * (walls.Count - 1)), item.transform.position.z);
-                    item.transform.position = Vector3.MoveTowards(item.transform.position, wallMovePos, 1f);
+                    item.transform.position = Vector3.MoveTowards(item.transform.position, wallMovePos, 0.03f);
                 }
-                fishSpawning.topOfScreen = walls[0].transform.position.y; //the very top of all the walls together
-                fishSpawning.bottomOfScreen = walls[walls.Count - 1].transform.position.y - 11.36f; //the bottom of the last wall in the array
             }
         }
 
@@ -120,10 +120,8 @@ namespace PortfolioProject
                 foreach (var item in walls)
                 {
                     Vector3 wallMovePos = new Vector3(item.transform.position.x, item.transform.position.y - (11.36f * (walls.Count - 1)), item.transform.position.z);
-                    item.transform.position = Vector3.MoveTowards(item.transform.position, wallMovePos, 1f);
+                    item.transform.position = Vector3.MoveTowards(item.transform.position, wallMovePos, 0.03f);
                 }
-                fishSpawning.topOfScreen = walls[0].transform.position.y;
-                fishSpawning.bottomOfScreen = walls[walls.Count - 1].transform.position.y - 11.36f;
             }
         }
 
