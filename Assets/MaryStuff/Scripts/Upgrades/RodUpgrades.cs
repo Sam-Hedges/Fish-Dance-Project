@@ -52,8 +52,8 @@ namespace PortfolioProject
         void ChangeValues(RodUpgrades rodUpgrades)
         {
             currentMoney -= rodUpgrades.cost;
-            rodUpgrades.cost += (2 * cost);
-            rodUpgrades.multiplier += (int)(0.5f + multiplier);
+            rodUpgrades.cost += (1.25f * cost);
+            rodUpgrades.multiplier += (int)(0.25f + multiplier);
         }
 
         void ChangeDisplay(RodUpgrades rodUpgrades)

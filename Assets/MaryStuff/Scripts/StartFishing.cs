@@ -29,7 +29,6 @@ namespace PortfolioProject
             fishSpawning.bottomOfScreen = -9.97f;
             screenBottom = new Vector3(-0.13f, 9.83f, -3.44f);
             walls.Add(wall);
-            fishCollection.rodLength = 2;
             wallSpawnPos = new Vector3(wall.transform.position.x, wall.transform.position.y - 11.36f, wall.transform.position.z);
             RodDown();
         }
@@ -51,7 +50,7 @@ namespace PortfolioProject
                     spawnNewWalls = true;
                 }
 
-                if (newWall != null || fishCollection.rodLength == 1)
+                if (newWall != null || FishCollection.rodLength == 1)
                 {
                     if (walls[walls.Count - 1].transform.position.y >= 6.5f) //if the wall at the bottom reaches the main camera area (you reached as far as you can go)
                     {
@@ -88,7 +87,7 @@ namespace PortfolioProject
                 //will only instantiate once (loop)
                 if (newWall == null)
                 {
-                    for (int i = 0; i < fishCollection.rodLength - 1; i++)
+                    for (int i = 0; i < FishCollection.rodLength - 1; i++)
                     {
                         newWall = Instantiate(wall, wallSpawnPos, Quaternion.identity);
                         walls.Add(newWall);

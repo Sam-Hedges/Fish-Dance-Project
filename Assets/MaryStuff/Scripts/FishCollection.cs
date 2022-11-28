@@ -16,9 +16,9 @@ namespace PortfolioProject
         bool magnet;
         bool boost;
 
-        private int fishAmount = 4;
+        public static int fishAmount = 4;
         public int currentFishAmount;
-        public float rodLength = 1;
+        public static float rodLength = 1;
         public List<GameObject> collectedFish = new List<GameObject>();
 
         public AudioSource collection;

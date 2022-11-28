@@ -31,8 +31,8 @@ namespace PortfolioProject
 
         public override void DoUpgrade()
         {
-            FishSpawning.lowerWait = FishSpawning.lowerWait / this.multiplier;
-            FishSpawning.higherWait = FishSpawning.higherWait / this.multiplier;
+            FishSpawning.lowerWait = FishSpawning.lowerWait - this.multiplier;
+            FishSpawning.higherWait = FishSpawning.higherWait - this.multiplier;
             Debug.Log("You bought the spawn extension");
         }
     }

@@ -6,14 +6,13 @@ namespace PortfolioProject
 {
     public class LineExtension : RodUpgrades
     {
-        FishCollection fishCollection;
         public override void Initialise()
         {
             base.Initialise();
             this.upgradeName = "LineExtension";
             this.cost = 10;
             this.multiplier = 1.25f;
-            fishCollection.rodLength = 5f;
+            FishCollection.rodLength = 1f;
 
             //cycling through all the text gui in this gameobject (children)
             foreach (Transform text in transform)
@@ -36,6 +35,7 @@ namespace PortfolioProject
         public override void DoUpgrade()
         {
             Debug.Log("You bought the line extension");
+            FishCollection.rodLength += this.multiplier;
         }
     }
 }
