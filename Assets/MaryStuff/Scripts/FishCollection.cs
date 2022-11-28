@@ -18,7 +18,7 @@ namespace PortfolioProject
 
         private int fishAmount = 4;
         public int currentFishAmount;
-        public float rodLength = 5;
+        public float rodLength = 1;
         public List<GameObject> collectedFish = new List<GameObject>();
 
         public AudioSource collection;
@@ -101,7 +101,7 @@ namespace PortfolioProject
         //gets the price of the fish and sells it
         public void CollectFish(GameObject fish)
         {
-            goldAmount += ((10 * fishSize) * (rodLength / 10));
+            goldAmount += ((10 * fishSize) * rodLength);
             goldDisplay.text = goldAmount.ToString("£0");
             FishSpawning.fishAmount.Remove(fish);
             Destroy(fish);
@@ -119,7 +119,6 @@ namespace PortfolioProject
                     break;
             }
 
-            Debug.Log(this.magnet);
             for (int i = 0; i < powerUpTimer; i++)
             {
                 yield return new WaitForSeconds(1);
