@@ -19,7 +19,7 @@ namespace PortfolioProject
         public static int fishAmount = 4;
         public int currentFishAmount;
         public static float rodLength = 1;
-        public List<GameObject> collectedFish = new List<GameObject>();
+        public static List<GameObject> collectedFish = new List<GameObject>();
 
         public AudioSource collection;
 
@@ -61,7 +61,7 @@ namespace PortfolioProject
                     item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z); //so the fish follows the rod to the top
                 }
 
-                if (currentFishAmount == fishAmount)
+                if (currentFishAmount == fishAmount && StartFishing.sellFish)
                 {
                     foreach (var item in collectedFish)
                     {
@@ -81,6 +81,7 @@ namespace PortfolioProject
                 currentFishAmount++;
                 other.GetComponent<Collider2D>().enabled = false; //this is so the fish can only add 1 to the counter when collided with
                 other.GetComponent<FishMove>().collected = true;
+                FishSpawning.fishAmount.Remove(other.gameObject);
                 collectedFish.Add(other.gameObject);
             }
             if(other.tag == "Magnet")

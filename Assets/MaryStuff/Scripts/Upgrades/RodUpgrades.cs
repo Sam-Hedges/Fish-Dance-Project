@@ -53,7 +53,7 @@ namespace PortfolioProject
         {
             currentMoney -= rodUpgrades.cost;
             rodUpgrades.cost += (1.25f * cost);
-            rodUpgrades.multiplier += (int)(0.25f + multiplier);
+            rodUpgrades.multiplier++;
         }
 
         void ChangeDisplay(RodUpgrades rodUpgrades)
@@ -61,7 +61,7 @@ namespace PortfolioProject
             money.GetComponent<FishCollection>().goldDisplay.text = currentMoney.ToString("£0");
             money.GetComponent<FishCollection>().goldAmount = currentMoney;
             costText.text = rodUpgrades.cost.ToString();
-            multiplierText.text = rodUpgrades.multiplier.ToString();
+            multiplierText.text = rodUpgrades.multiplier.ToString("0.00");
         }
     }
 }

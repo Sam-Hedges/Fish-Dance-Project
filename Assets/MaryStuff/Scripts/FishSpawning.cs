@@ -36,10 +36,10 @@ public class FishSpawning : MonoBehaviour
 
     public IEnumerator WaitForFish()
     {
-        waitTime = Random.Range(lowerWait, higherWait);
-        yield return new WaitForSeconds(waitTime);
-        Spawn();
-        StartCoroutine(WaitForFish());
+            waitTime = Random.Range(lowerWait, higherWait);
+            yield return new WaitForSeconds(waitTime);
+            Spawn();
+            StartCoroutine(WaitForFish());
     }
 
     public virtual void Spawn()

@@ -11,7 +11,7 @@ namespace PortfolioProject
             base.Initialise();
             this.upgradeName = "LineExtension";
             this.cost = 10;
-            this.multiplier = 1.25f;
+            this.multiplier = 1f;
             FishCollection.rodLength = 1f;
 
             //cycling through all the text gui in this gameobject (children)
@@ -35,7 +35,7 @@ namespace PortfolioProject
         public override void DoUpgrade()
         {
             Debug.Log("You bought the line extension");
-            FishCollection.rodLength += this.multiplier;
+            FishCollection.rodLength += 1;
         }
     }
 }
