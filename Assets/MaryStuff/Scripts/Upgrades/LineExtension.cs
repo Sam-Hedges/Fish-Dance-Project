@@ -6,6 +6,10 @@ namespace PortfolioProject
 {
     public class LineExtension : RodUpgrades
     {
+        private void Start()
+        {
+            Initialise();
+        }
         public override void Initialise()
         {
             base.Initialise();

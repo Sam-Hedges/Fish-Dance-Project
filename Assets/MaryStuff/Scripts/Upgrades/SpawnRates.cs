@@ -6,6 +6,10 @@ namespace PortfolioProject
 {
     public class SpawnRates : RodUpgrades
     {
+        private void Start()
+        {
+            Initialise();
+        }
         public override void Initialise()
         {
             this.upgradeName = "SpawnRates";

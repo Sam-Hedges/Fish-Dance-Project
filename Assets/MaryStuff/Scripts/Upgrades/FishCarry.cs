@@ -6,6 +6,11 @@ namespace PortfolioProject
 {
     public class FishCarry : RodUpgrades
     {
+        private void Start()
+        {
+            Initialise();
+        }
+
         public override void Initialise()
         {
             this.upgradeName = "FishCarry";

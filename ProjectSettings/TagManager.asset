@@ -8,6 +8,7 @@ TagManager:
   - Fish
   - Magnet
   - Boost
+  - UpLoc
   layers:
   - Default
   - TransparentFX

@@ -6,6 +6,10 @@ namespace PortfolioProject
 {
     public class Speed : RodUpgrades
     {
+        private void Start()
+        {
+            Initialise();
+        }
         public override void Initialise()
         {
             this.upgradeName = "Speed";

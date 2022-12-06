@@ -8,7 +8,9 @@ namespace PortfolioProject
     public class FishCollection : MonoBehaviour
     {
         public TextMeshProUGUI goldDisplay;
-        public float goldAmount;
+        public TextMeshProUGUI fishLeftDisplay;
+        int fishLeft = 4;
+        public static float goldAmount;
         public float fishSize;
 
         float powerUpTimer = 10;
@@ -63,6 +65,7 @@ namespace PortfolioProject
 
                 if (currentFishAmount == fishAmount && StartFishing.sellFish)
                 {
+                    fishLeft = fishAmount;
                     foreach (var item in collectedFish)
                     {
                         CollectFish(item);
@@ -77,6 +80,8 @@ namespace PortfolioProject
         {
             if(other.tag == "Fish")
             {
+                fishLeft--;
+                fishLeftDisplay.text = fishLeft.ToString();
                 fishSize = other.transform.localScale.z;
                 currentFishAmount++;
                 other.GetComponent<Collider2D>().enabled = false; //this is so the fish can only add 1 to the counter when collided with
