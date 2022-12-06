@@ -11,10 +11,18 @@ namespace PortfolioProject
         public static bool GamePaused = false;
 
         // game objects
+        public GameObject mainMenu;
         public GameObject ui;
         public GameObject pauseMenuUI;
         public GameObject settingsMenuUI;
 
+        // this function removes the pause button, pulls up the menu and pauses the game 
+        public void MainMenu()
+        {
+            mainMenu.SetActive(false);
+            ui.SetActive(true);
+            Time.timeScale = 1f;
+        }
         // this function removes the pause button, pulls up the menu and pauses the game 
         public void Pause()
         {
@@ -54,3 +62,4 @@ namespace PortfolioProject
         }
     }
 }
+
