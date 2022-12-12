@@ -48,13 +48,6 @@ namespace PortfolioProject
                 }
                 boost = false;
             }
-            else if (PowerUpSpawning.canSpawn)
-            {
-                foreach (var item in scrolls)
-                {
-                    item.GetComponent<WaterScrollEffect>().ySpeed = 0.2f;
-                }
-            }
 
             if (collectedFish != null)
             {
@@ -76,7 +69,7 @@ namespace PortfolioProject
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
             if(other.tag == "Fish")
             {
@@ -84,7 +77,7 @@ namespace PortfolioProject
                 fishLeftDisplay.text = fishLeft.ToString();
                 fishSize = other.transform.localScale.z;
                 currentFishAmount++;
-                other.GetComponent<Collider2D>().enabled = false; //this is so the fish can only add 1 to the counter when collided with
+                other.GetComponent<Collider>().enabled = false; //this is so the fish can only add 1 to the counter when collided with
                 other.GetComponent<FishMove>().collected = true;
                 FishSpawning.fishAmount.Remove(other.gameObject);
                 collectedFish.Add(other.gameObject);
@@ -101,6 +94,13 @@ namespace PortfolioProject
                 FishSpawning.waitTime = FishSpawning.waitTime / 2.5f;
                 collection.Play();
                 Destroy(other.gameObject);
+            }
+            if(other.tag == "JellyFish")
+            {
+                Debug.Log("JellyFish Hit");
+                //take away some money
+                //go straight to top
+                //lightining effect?
             }
         }
 
@@ -129,7 +129,6 @@ namespace PortfolioProject
             {
                 yield return new WaitForSeconds(1);
             }
-            PowerUpSpawning.canSpawn = true;
 
             switch (powerUpType)
             {

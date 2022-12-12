@@ -9,6 +9,7 @@ TagManager:
   - Magnet
   - Boost
   - UpLoc
+  - JellyFish
   layers:
   - Default
   - TransparentFX

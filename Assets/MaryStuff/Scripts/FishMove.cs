@@ -41,7 +41,6 @@ namespace PortfolioProject
         private void Update()
         {
             this.transform.position = Vector3.MoveTowards(this.transform.position, this.reachedLocation, this.speed);
-            transform.right = reachedLocation - transform.position;
 
             if (this.transform.position == reachedLocation && !collected)
             {

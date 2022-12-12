@@ -34,7 +34,6 @@ namespace PortfolioProject
         void Start()
         {
             cam = Camera.main.gameObject;
-            rod.GetComponentInChildren<SpriteRenderer>().enabled = false;
             FishCollection.rodLength = 1f;
             fishSpawning.topOfScreen = 5.46f;
             fishSpawning.bottomOfScreen = -9.97f;
@@ -52,7 +51,7 @@ namespace PortfolioProject
                 rod.GetComponent<FollowMouse>().enabled = false;
                 canFishSpawn = false;
                 startedFishing = false;
-                rodMovePos = new Vector3(rod.transform.position.x, 16.5f, rod.transform.position.z);
+                rodMovePos = new Vector3(rod.transform.position.x, 9.15f, rod.transform.position.z);
                 camMovePos = new Vector3(cam.transform.position.x, 12.79f, cam.transform.position.z);
                 RodUp();
             }
@@ -119,7 +118,7 @@ namespace PortfolioProject
                 fishSpawning.bottomOfScreen = walls[walls.Count - 1].transform.position.y; //the bottom of the last wall in the array
 
                 camMovePos = new Vector3(cam.transform.position.x, 1, cam.transform.position.z); //moves the camera down to the centre of the first wall
-                rodMovePos = new Vector3(rod.transform.position.x, 11.82f, rod.transform.position.z); //moves rod to centre of screen
+                rodMovePos = new Vector3(rod.transform.position.x, 0.86f, rod.transform.position.z); //moves rod to centre of screen
                 startedFishing = true;
             }
         }
@@ -131,9 +130,8 @@ namespace PortfolioProject
             {
                 if (cam.transform.position.y <= 1)
                 {
-                    rod.GetComponentInChildren<SpriteRenderer>().enabled = true;
                     rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.03f);
-                    if (rod.transform.position.y <= 11.82f || (rod.transform.position.y < 12 && FishCollection.rodLength == 1)) //if the rod is in the middle of the screen then both the rod and camera move to the bottom
+                    if (rod.transform.position.y <= 0.86f || (rod.transform.position.y < 12 && FishCollection.rodLength == 1)) //if the rod is in the middle of the screen then both the rod and camera move to the bottom
                     {
                         float lastWallPos = walls[walls.Count - 1].transform.position.y + 0.75f;
                         camMovePos = new Vector3(cam.transform.position.x, (lastWallPos), cam.transform.position.z); //camera will move down to the last wall
@@ -149,8 +147,8 @@ namespace PortfolioProject
         //will be called when you have collected the desired amount of fish
         void RodUp()
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.03f);
-            rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.03f);
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.07f);
+            rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.07f);
 
             if (!canFishSpawn)
             {
@@ -166,7 +164,6 @@ namespace PortfolioProject
                         }
                     }
                     wallSpawnPos = new Vector3(wall.transform.position.x, wall.transform.position.y - 11.36f, wall.transform.position.z);
-                    rod.GetComponentInChildren<SpriteRenderer>().enabled = false;
                     mainCanvas.SetActive(true);
                     sellFish = true;
                     fishCanvas.SetActive(false);
