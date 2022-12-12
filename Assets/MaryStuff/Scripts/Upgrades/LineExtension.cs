@@ -6,32 +6,11 @@ namespace PortfolioProject
 {
     public class LineExtension : RodUpgrades
     {
-        private void Start()
+        public override void Initialise(float multiplier, float cost)
         {
-            Initialise();
-        }
-        public override void Initialise()
-        {
-            base.Initialise();
             this.upgradeName = "LineExtension";
-            this.cost = 10;
-            this.multiplier = 1f;
-            FishCollection.rodLength = 1f;
-
-            //cycling through all the text gui in this gameobject (children)
-            foreach (Transform text in transform)
-            {
-                if(text.name == "Amount")
-                {
-                    this.multiplierText = text.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                    this.multiplierText.text = this.multiplier.ToString();
-                }
-                if(text.name == "Cost")
-                {
-                    this.costText = text.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                    this.costText.text = this.cost.ToString();
-                }
-            }
+            this.multiplierText.text = multiplier.ToString();
+            this.costText.text = cost.ToString();
 
             base.upgrades.Add(1, this);
         }

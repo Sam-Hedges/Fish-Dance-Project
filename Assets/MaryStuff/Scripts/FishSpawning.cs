@@ -41,6 +41,7 @@ public class FishSpawning : MonoBehaviour
         var dist = (transform.position - Camera.main.transform.position).z;
         leftOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, dist)).x;
         rightOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, dist)).x;
+        topOfScreen = 6.64f;
     }
 
     public IEnumerator WaitForFish()
@@ -54,6 +55,7 @@ public class FishSpawning : MonoBehaviour
 
     public virtual void Spawn()
     {
+        int spawnRotation = 0;
         this.side = Random.Range(0, 2);
 
         this.ySpawn = Random.Range(bottomOfScreen, topOfScreen);
@@ -62,9 +64,11 @@ public class FishSpawning : MonoBehaviour
         {
             case 0:
                 this.xSpawn = leftOfScreen;
+                spawnRotation = 90;
                 break;
             case 1:
                 this.xSpawn = rightOfScreen;
+                spawnRotation = -90;
                 break;
         }
 
@@ -77,7 +81,7 @@ public class FishSpawning : MonoBehaviour
         switch(type)
         {
             default:
-                newFish = Instantiate(fish, spawnLocation, Quaternion.identity);
+                newFish = Instantiate(fish, spawnLocation, Quaternion.Euler(0, spawnRotation, 0));
 
                 //random size for fish
                 newFish.transform.localScale = Vector3.one * scale;

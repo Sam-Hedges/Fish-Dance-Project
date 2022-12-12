@@ -19,21 +19,15 @@ namespace PortfolioProject
 
         public TextMeshProUGUI multiplierText, costText;
 
-        private void Start()
-        {
-            money = GameObject.Find("hook");
-            Initialise();
-        }
-
         //this is to set the values on the children scripts for each upgrade
-        public virtual void Initialise()    {   }
+        public virtual void Initialise(float multiplier, float cost)    {   }
 
         public virtual void DoUpgrade()  { }
 
         //this is called first to see if you have enough money
         public void CheckMoney(string upgradeType)
         {
-            currentMoney = FishCollection.goldAmount;
+            currentMoney = money.GetComponent<FishCollection>().goldAmount;
 
             foreach (var item in upgrades)
             {
@@ -59,7 +53,7 @@ namespace PortfolioProject
         void ChangeDisplay(RodUpgrades rodUpgrades)
         {
             money.GetComponent<FishCollection>().goldDisplay.text = currentMoney.ToString("£0");
-            FishCollection.goldAmount = currentMoney;
+            money.GetComponent<FishCollection>().goldAmount = currentMoney;
             costText.text = rodUpgrades.cost.ToString();
             multiplierText.text = rodUpgrades.multiplier.ToString("0.00");
         }

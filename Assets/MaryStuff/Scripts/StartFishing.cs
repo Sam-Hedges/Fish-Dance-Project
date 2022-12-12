@@ -21,7 +21,7 @@ namespace PortfolioProject
         Vector3 camMovePos;
         Vector3 rodMovePos;
 
-        public bool canFishSpawn = false;
+        public static bool canFishSpawn = false;
 
         Vector3 wallSpawnPos;
 
@@ -34,9 +34,6 @@ namespace PortfolioProject
         void Start()
         {
             cam = Camera.main.gameObject;
-            FishCollection.rodLength = 1f;
-            fishSpawning.topOfScreen = 5.46f;
-            fishSpawning.bottomOfScreen = -9.97f;
 
             walls.Add(wall);
             wallSpawnPos = new Vector3(wall.transform.position.x, wall.transform.position.y - 11.36f, wall.transform.position.z);
@@ -114,7 +111,6 @@ namespace PortfolioProject
                     walls.Add(newWall);
                     wallSpawnPos = new Vector3(newWall.transform.position.x, newWall.transform.position.y - 11.36f, newWall.transform.position.z); //spawns it below the last wall
                 }
-                fishSpawning.topOfScreen = walls[0].transform.position.y; //the very top of all the walls together
                 fishSpawning.bottomOfScreen = walls[walls.Count - 1].transform.position.y; //the bottom of the last wall in the array
 
                 camMovePos = new Vector3(cam.transform.position.x, 1, cam.transform.position.z); //moves the camera down to the centre of the first wall

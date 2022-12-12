@@ -10,7 +10,7 @@ namespace PortfolioProject
         public TextMeshProUGUI goldDisplay;
         public TextMeshProUGUI fishLeftDisplay;
         int fishLeft = 4;
-        public static float goldAmount;
+        public float goldAmount;
         public float fishSize;
 
         float powerUpTimer = 10;
@@ -20,33 +20,37 @@ namespace PortfolioProject
 
         public static int fishAmount = 4;
         public int currentFishAmount;
-        public static float rodLength = 1;
+        public static float rodLength;
         public static List<GameObject> collectedFish = new List<GameObject>();
 
         public AudioSource collection;
 
         public List<GameObject> scrolls = new List<GameObject>();
 
+
         private void Update()
         {
-            if (magnet)
+            if (currentFishAmount != fishAmount && StartFishing.canFishSpawn)
             {
-                foreach (var item in FishSpawning.fishAmount)
+                if (magnet)
                 {
-                    item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z);
+                    foreach (var item in FishSpawning.fishAmount)
+                    {
+                        item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z);
+                    }
                 }
-            }
-            if (boost)
-            {
-                foreach (var item in FishSpawning.fishAmount)
+                if (boost)
                 {
-                    item.GetComponent<FishMove>().speed = item.GetComponent<FishMove>().speed * 2.5f;
+                    foreach (var item in FishSpawning.fishAmount)
+                    {
+                        item.GetComponent<FishMove>().speed = item.GetComponent<FishMove>().speed * 2.5f;
+                    }
+                    foreach (var item in scrolls)
+                    {
+                        item.GetComponent<WaterScrollEffect>().ySpeed = 0.6f;
+                    }
+                    boost = false;
                 }
-                foreach (var item in scrolls)
-                {
-                    item.GetComponent<WaterScrollEffect>().ySpeed = 0.6f;
-                }
-                boost = false;
             }
 
             if (collectedFish != null)

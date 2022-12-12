@@ -6,29 +6,11 @@ namespace PortfolioProject
 {
     public class SpawnRates : RodUpgrades
     {
-        private void Start()
-        {
-            Initialise();
-        }
-        public override void Initialise()
+        public override void Initialise(float multiplier, float cost)
         {
             this.upgradeName = "SpawnRates";
-            this.cost = 1;
-            this.multiplier = 1.25f;
-
-            foreach (Transform text in transform)
-            {
-                if (text.name == "Amount")
-                {
-                    this.multiplierText = text.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                    this.multiplierText.text = this.multiplier.ToString();
-                }
-                if (text.name == "Cost")
-                {
-                    this.costText = text.gameObject.GetComponent<TMPro.TextMeshProUGUI>();
-                    this.costText.text = this.cost.ToString();
-                }
-            }
+            this.multiplierText.text = multiplier.ToString();
+            this.costText.text = cost.ToString();
 
             base.upgrades.Add(4, this);
         }
