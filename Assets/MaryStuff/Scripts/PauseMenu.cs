@@ -23,6 +23,13 @@ namespace PortfolioProject
             ui.SetActive(true);
             Time.timeScale = 1f;
         }
+
+        public void GameStart()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+
         // this function removes the pause button, pulls up the menu and pauses the game 
         public void Pause()
         {

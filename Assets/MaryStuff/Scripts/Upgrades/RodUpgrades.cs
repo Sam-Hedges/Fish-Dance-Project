@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace PortfolioProject
 {
@@ -22,7 +23,26 @@ namespace PortfolioProject
         //this is to set the values on the children scripts for each upgrade
         public virtual void Initialise(float multiplier, float cost)    {   }
 
-        public virtual void DoUpgrade()  { }
+        public virtual void DoUpgrade()    {       }
+
+        public virtual void ChangeColour(string upgradeType)
+        {
+            currentMoney = money.GetComponent<FishCollection>().goldAmount;
+            foreach (var item in upgrades)
+            {
+                if (upgrades[item.Key].upgradeName == upgradeType)
+                {
+                    if (currentMoney < upgrades[item.Key].cost)
+                    {
+                        upgrades[item.Key].GetComponent<Image>().color = new Color32(63, 63, 63, 255);
+                    }
+                    else if (currentMoney >= upgrades[item.Key].cost)
+                    {
+                        upgrades[item.Key].GetComponent<Image>().color = new Color32(0, 0, 0, 255);
+                    }
+                }
+            }
+        }
 
         //this is called first to see if you have enough money
         public void CheckMoney(string upgradeType)
@@ -48,6 +68,11 @@ namespace PortfolioProject
             currentMoney -= rodUpgrades.cost;
             rodUpgrades.cost += (1.25f * cost);
             rodUpgrades.multiplier++;
+
+            foreach (var item in upgrades)
+            {
+                ChangeColour(upgrades[item.Key].name);
+            }
         }
 
         void ChangeDisplay(RodUpgrades rodUpgrades)
