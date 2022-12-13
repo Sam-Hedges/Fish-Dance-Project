@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f113fcf07220ca4eb8a4fa9f408ac40, type: 3}
   m_Name: RaftBuoyancySettings
   m_EditorClassIdentifier: 
-  depthBeforeSubmerged: 0
-  displacementAmount: 1.48
+  depthBeforeSubmerged: 2
+  displacementAmount: 1.5
   numberOfPoints: 4
-  waterDrag: 0.99
-  waterAngularDrag: 0.5
+  waterDrag: 1.5
+  waterAngularDrag: 1

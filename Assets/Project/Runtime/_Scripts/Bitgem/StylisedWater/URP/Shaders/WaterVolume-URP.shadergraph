@@ -3230,7 +3230,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "05c5ab28e95bb7848783b6eae62d42f1",
     "m_Id": 0,
-    "m_DisplayName": "_WaveScale",
+    "m_DisplayName": "_WaveAmplitude",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -12067,7 +12067,7 @@
     "m_Guid": {
         "m_GuidSerialized": "79a84d32-d59a-4a6d-b744-97312504aab5"
     },
-    "m_Name": "_WaveScale",
+    "m_Name": "_WaveAmplitude",
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_E03AB928",

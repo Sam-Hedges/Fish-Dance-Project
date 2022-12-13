@@ -9,12 +9,12 @@ using Water.Attribute;
 public class GenerateMesh : MonoBehaviour
 {
 
-    private MeshFilter meshFilter;
+    private protected MeshFilter meshFilter;
     private bool built = false;
-    private Mesh mesh;
+    private Mesh mesh;  
     private bool[,,] tiles;
     
-    [SerializeField] private Vector3Int dimensions = Vector3Int.one;
+    [SerializeField] private protected Vector3Int dimensions = Vector3Int.one;
     [SerializeField] private float tileScale = 1f;
     [SerializeField] private int uvScale = 1;
     private float UVScale
@@ -50,13 +50,29 @@ public class GenerateMesh : MonoBehaviour
         
     }
     
+    private void GenerateTiles(ref bool[,,] _tiles)
+    {
+        // populate the tiles with a box volume
+        for (var x = 0; x < dimensions.x; x++)
+        {
+            for (var y = 0; y < dimensions.y; y++)
+            {
+                for (var z = 0; z < dimensions.z; z++)
+                {
+                    _tiles[x, y, z] = true;
+                }
+            }
+        }
+    }
+
     // Called when the script is loaded or a value is changed in the inspector (Called in the editor only)
     private void OnValidate() {
         mesh = new Mesh {
             name = "Procedural Mesh"
         };
         
-        GetComponent<MeshFilter>().mesh = mesh;
+        meshFilter = GetComponent<MeshFilter>();
+        meshFilter.mesh = mesh;
         
         built = false;
     }
@@ -68,14 +84,11 @@ public class GenerateMesh : MonoBehaviour
         
         // Creates a 3D array of booleans to represent the vertices of the mesh
         tiles = new bool[dimensions.x, dimensions.y, dimensions.z];
-        for (int x = 0; x < dimensions.x; x++) {
-            for (int y = 0; y < dimensions.y; y++) {
-                for (int z = 0; z < dimensions.z; z++) {
-                    tiles[x, y, z] = true;
-                }
-            }
-        }
-        
+        GenerateTiles(ref tiles);
+        dimensions.x = tiles.GetLength(0);
+        dimensions.y = tiles.GetLength(1);
+        dimensions.z = tiles.GetLength(2);
+
         // Stores the Vertices of the mesh
         List<Vector3> vertices = new List<Vector3>();
         
