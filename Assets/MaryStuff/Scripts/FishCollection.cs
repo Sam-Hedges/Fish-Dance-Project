@@ -8,6 +8,7 @@ namespace PortfolioProject
     public class FishCollection : MonoBehaviour
     {
         public TextMeshProUGUI goldDisplay;
+        public TextMeshProUGUI minusGoldDisplay;
         public TextMeshProUGUI fishLeftDisplay;
         int fishLeft = 4;
         public float goldAmount;
@@ -17,8 +18,9 @@ namespace PortfolioProject
 
         bool magnet;
         bool boost;
+        public bool hitJellyFish = false;
 
-        public static int fishAmount = 4;
+        public static int fishAmount;
         public int currentFishAmount;
         public static float rodLength;
         public static List<GameObject> collectedFish = new List<GameObject>();
@@ -30,7 +32,7 @@ namespace PortfolioProject
 
         private void Update()
         {
-            if (currentFishAmount != fishAmount && StartFishing.canFishSpawn)
+            if (currentFishAmount != fishAmount && StartFishing.canFishSpawn && collectedFish != null)
             {
                 if (magnet)
                 {
@@ -53,23 +55,28 @@ namespace PortfolioProject
                 }
             }
 
-            if (collectedFish != null)
+            Fish();
+        }
+
+        void Fish()
+        {
+
+            foreach (var item in collectedFish)
             {
+                item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z); //so the fish follows the rod to the top
+            }
+
+            if (currentFishAmount == fishAmount && StartFishing.sellFish || hitJellyFish && !StartFishing.canFishSpawn)
+            {
+                fishLeft = fishAmount;
                 foreach (var item in collectedFish)
                 {
-                    item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z); //so the fish follows the rod to the top
+                    CollectFish(item);
                 }
-
-                if (currentFishAmount == fishAmount && StartFishing.sellFish)
-                {
-                    fishLeft = fishAmount;
-                    foreach (var item in collectedFish)
-                    {
-                        CollectFish(item);
-                    }
-                    collectedFish.Clear();
-                    currentFishAmount = 0;
-                }
+                collectedFish.Clear();
+                currentFishAmount = 0;
+                magnet = false;
+                boost = false;
             }
         }
 
@@ -101,10 +108,26 @@ namespace PortfolioProject
             }
             if(other.tag == "JellyFish")
             {
-                Debug.Log("JellyFish Hit");
-                //take away some money
-                //go straight to top
-                //lightining effect?
+                float minusMoney = Random.Range((fishAmount * 3), (fishAmount * 5));
+                goldAmount -= minusMoney;
+                if(goldAmount < 0)
+                {
+                    goldAmount = 0;
+                }
+                minusGoldDisplay.gameObject.SetActive(true);
+                minusGoldDisplay.text = minusMoney.ToString("-0");
+                goldDisplay.text = goldAmount.ToString("£0");
+
+                //magnet = false;
+                //boost = false;
+                //foreach (var item in collectedFish)
+                //{
+                //    Destroy(item.gameObject);
+                //}
+                //collectedFish.Clear();
+                //currentFishAmount = 0;
+                //Destroy(other.gameObject);
+                hitJellyFish = true;
             }
         }
 

@@ -14,6 +14,7 @@ namespace PortfolioProject
         GameObject cam;
         public GameObject fishCanvas;
         public GameObject mainCanvas;
+        public GameObject minusGoldDisplay;
 
         public GameObject wall;
         GameObject newWall;
@@ -27,7 +28,7 @@ namespace PortfolioProject
 
         public List<GameObject> walls = new List<GameObject>();
 
-        bool startedFishing;
+        public bool startedFishing;
 
         public static bool sellFish = false;
 
@@ -43,7 +44,7 @@ namespace PortfolioProject
         {
             TestRodLocation();
 
-            if(fishCollection.currentFishAmount == FishCollection.fishAmount)
+            if(fishCollection.currentFishAmount == FishCollection.fishAmount || fishCollection.hitJellyFish)
             {
                 rod.GetComponent<FollowMouse>().enabled = false;
                 canFishSpawn = false;
@@ -59,7 +60,6 @@ namespace PortfolioProject
                 {
                     Destroy(item);
                 }
-                StopCoroutine(fishSpawning.WaitForFish());
             }
         }
 
@@ -72,7 +72,6 @@ namespace PortfolioProject
                 if (rod.transform.position.y == (walls[walls.Count - 1].gameObject.transform.Find("RodBottomLoc").position.y))
                 {
                     rod.GetComponent<FollowMouse>().enabled = true;
-                    StartCoroutine(fishSpawning.WaitForFish());
                     canFishSpawn = true;
                 }
             }
@@ -151,7 +150,6 @@ namespace PortfolioProject
                 //if the camera and rod are at the top of the screen
                 if (cam.transform.position == camMovePos && rod.transform.position == rodMovePos)
                 {
-                    Cursor.visible = true;
                     foreach (var item in walls)
                     {
                         if (item != walls[0])
@@ -162,7 +160,9 @@ namespace PortfolioProject
                     wallSpawnPos = new Vector3(wall.transform.position.x, wall.transform.position.y - 11.36f, wall.transform.position.z);
                     mainCanvas.SetActive(true);
                     sellFish = true;
+                    minusGoldDisplay.SetActive(false);
                     fishCanvas.SetActive(false);
+                    fishCollection.hitJellyFish = false;
                 }
             }
         }

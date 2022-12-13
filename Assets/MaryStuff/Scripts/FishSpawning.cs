@@ -42,6 +42,7 @@ public class FishSpawning : MonoBehaviour
         leftOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, dist)).x;
         rightOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, dist)).x;
         topOfScreen = 6.64f;
+        StartCoroutine(WaitForFish());
     }
 
     public IEnumerator WaitForFish()

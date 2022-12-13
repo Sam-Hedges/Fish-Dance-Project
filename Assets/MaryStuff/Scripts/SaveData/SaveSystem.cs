@@ -43,8 +43,6 @@ namespace PortfolioProject
                     goldEarntDisplay.text = moneyEarnt.ToString("£0");
                     data.gold += moneyEarnt;
                 }
-
-
                 fishCollection.goldAmount = data.gold;
 
                 speed.multiplier = data.RodSpeed[0];
@@ -61,22 +59,22 @@ namespace PortfolioProject
             }
             else
             {
-
                 fishCollection.goldAmount = 0;
 
                 speed.multiplier = 1.25f;
                 speed.cost = 100;
 
-                lineExtension.multiplier = 1f;
+                lineExtension.multiplier = 2f;
                 lineExtension.cost = 100;
 
                 spawnRates.multiplier = 1.25f;
                 spawnRates.cost = 100;
 
-                fishCarry.multiplier = 1f;
+                fishCarry.multiplier = 5f;
                 fishCarry.cost = 100;
             }
-            FishCollection.rodLength = lineExtension.multiplier;
+            FishCollection.fishAmount = (int)fishCarry.multiplier - 1;
+            FishCollection.rodLength = lineExtension.multiplier - 1;
             speed.Initialise(speed.multiplier, speed.cost);
             lineExtension.Initialise(lineExtension.multiplier, lineExtension.cost);
             spawnRates.Initialise(spawnRates.multiplier, spawnRates.cost);
