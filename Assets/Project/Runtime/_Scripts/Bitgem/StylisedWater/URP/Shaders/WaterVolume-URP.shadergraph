@@ -10133,10 +10133,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 46.40011215209961,
-            "y": -1609.5999755859375,
-            "width": 255.99996948242188,
-            "height": 325.5999755859375
+            "x": 48.0,
+            "y": -1606.0,
+            "width": 257.0,
+            "height": 326.0
         }
     },
     "m_Slots": [
@@ -12071,7 +12071,7 @@
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Vector1_E03AB928",
-    "m_OverrideReferenceName": "_WaveScale",
+    "m_OverrideReferenceName": "_WaveAmplitude",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",

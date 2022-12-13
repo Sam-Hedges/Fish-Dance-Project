@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Water.Attribute;
@@ -14,7 +13,7 @@ public class GenerateMesh : MonoBehaviour
     private Mesh mesh;  
     private bool[,,] tiles;
     
-    [SerializeField] private protected Vector3Int dimensions = Vector3Int.one;
+    [SerializeField] private protected Vector3Int dimensions = Vector3Int.one; // 
     [SerializeField] private float tileScale = 1f;
     [SerializeField] private int uvScale = 1;
     private float UVScale
@@ -32,24 +31,25 @@ public class GenerateMesh : MonoBehaviour
         PosZ = 8
     }
     
-    [FlagEnum]
+    // These are used to toggle each side of the waters properties ()
+    [FlagEnum] // This allows the editor to display the flags as toggle buttons
     public TileFace includeFaces = TileFace.NegX | TileFace.NegZ | TileFace.PosX | TileFace.PosZ;
 
-    [FlagEnum]
+    [FlagEnum] // This allows the editor to display the flags as toggle buttons
     public TileFace includeFoam = TileFace.NegX | TileFace.NegZ | TileFace.PosX | TileFace.PosZ;
     
     private void Awake() {
         meshFilter = GetComponent<MeshFilter>();
     }
-
+    
+    // If the dimensions change, we need to rebuild the mesh
     private void Update() {
-
         if (!built) {
             BuildMesh();
         }
-        
     }
     
+    // Generates a 3D array that represents the tiles that will be used to build the mesh
     private void GenerateTiles(ref bool[,,] _tiles)
     {
         // populate the tiles with a box volume
@@ -77,6 +77,7 @@ public class GenerateMesh : MonoBehaviour
         built = false;
     }
     
+    // Builds a mesh for use as a Water Surface
     private void BuildMesh() {
         
         // Delete any other mesh
@@ -277,10 +278,8 @@ public class GenerateMesh : MonoBehaviour
                         
                         GenerateFace(v1, v2, v3, v4, n, uv1, uv2, uv3, uv4);
                     }
-
-                    /// <summary>
-                    /// Local function to generate the side faces used to reduce code duplication
-                    /// </summary>
+                    
+                    // Local function to generate the side faces used to reduce code duplication
                     void GenerateFace(Vector3 v1, Vector3 v2, Vector3 v3, Vector3 v4, Vector3 n, Vector2 uv1, Vector2 uv2, Vector2 uv3, Vector2 uv4) {
                         
                         // Add the vertices
