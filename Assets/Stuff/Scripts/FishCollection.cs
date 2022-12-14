@@ -72,17 +72,24 @@ namespace PortfolioProject
 
         IEnumerator IdleMoneyGain()
         {
-            goldAmount += (1 * fishAmount) / 2;
-            goldDisplay.text = goldAmount.ToString("£0");
+            AddIdleMoney();
             yield return new WaitForSeconds(1.5f);
             StartCoroutine(IdleMoneyGain());
+        }
+
+        void AddIdleMoney()
+        {
+            if (!StartFishing.startedFishing)
+            {
+                goldAmount += (1 * fishAmount) / 2;
+                goldDisplay.text = goldAmount.ToString("£0");
+            }
         }
 
         void Fish()
         {
             if (currentFishAmount == fishAmount && StartFishing.sellFish)
             {
-                fishLeft = fishAmount;
                 foreach (var item in collectedFish)
                 {
                     float moneyEarnt = ((10 * fishSize) * rodLength);
@@ -112,7 +119,7 @@ namespace PortfolioProject
         {
             if(other.tag == "Fish")
             {
-                fishLeft--;
+                fishLeft -= 1;
                 fishLeftDisplay.text = fishLeft.ToString();
                 fishSize = other.transform.localScale.z;
                 currentFishAmount++;

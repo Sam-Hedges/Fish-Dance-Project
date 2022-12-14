@@ -17,7 +17,7 @@ namespace PortfolioProject
 
         public override void DoUpgrade()
         {         
-            FishCollection.fishAmount += Mathf.RoundToInt(this.multiplier);
+            FishCollection.fishAmount += 1;
             Debug.Log("You bought the carry extension");
         }
     }

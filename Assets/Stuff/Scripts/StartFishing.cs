@@ -11,6 +11,8 @@ namespace PortfolioProject
         public FishCollection fishCollection;
 
         public GameObject rod;
+        public GameObject rope;
+        public GameObject rodDisplay;
         GameObject cam;
         public GameObject fishCanvas;
         public GameObject mainCanvas;
@@ -28,7 +30,7 @@ namespace PortfolioProject
 
         public List<GameObject> walls = new List<GameObject>();
 
-        public bool startedFishing;
+        public static bool startedFishing;
 
         public static bool sellFish = false;
 
@@ -89,7 +91,9 @@ namespace PortfolioProject
 
         public void SpawnWalls()
         {
-            fishCollection.fishLeftDisplay.text = fishCollection.fishLeft.ToString();
+            fishCollection.fishLeft = FishCollection.fishAmount;
+            fishCollection.fishLeftDisplay.text = FishCollection.fishAmount.ToString();
+            fishCanvas.SetActive(true);
             if (!startedFishing) //can't spawn walls multiple times when not fishing
             {
                 sellFish = false;
@@ -115,6 +119,10 @@ namespace PortfolioProject
             {
                 if (cam.transform.position.y <= 1)
                 {
+                    foreach (Transform child in rod.transform) //sets each part of the rod to be visible
+                    {
+                        child.GetComponent<MeshRenderer>().enabled = true;
+                    }
                     rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.03f);
                     if (rod.transform.position.y <= 0.86f || (rod.transform.position.y < 12 && FishCollection.rodLength == 1)) //if the rod is in the middle of the screen then both the rod and camera move to the bottom
                     {
@@ -151,10 +159,16 @@ namespace PortfolioProject
                     mainCanvas.SetActive(true);
                     sellFish = true;
                     fishSpawning.fishAmount.Clear();
+                    fishCollection.currentFishAmount = 0;
                     minusGoldDisplay.SetActive(false);
                     fishCanvas.SetActive(false);
                     Music.clip = mainMusic;
                     fishCollection.hitJellyFish = false;
+                    foreach (Transform child in rod.transform) //sets each part of the rod to be invisible
+                    {
+                        child.GetComponent<MeshRenderer>().enabled = false;
+                    }
+                    rodDisplay.SetActive(true);
                 }
             }
         }
