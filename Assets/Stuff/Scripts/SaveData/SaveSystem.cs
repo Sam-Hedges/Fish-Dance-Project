@@ -83,6 +83,7 @@ namespace PortfolioProject
                 fishCarry.cost = 100;
             }
             FishCollection.fishAmount = (int)fishCarry.multiplier - 1;
+            fishCollection.fishLeft = (int)fishCarry.multiplier - 1;
             FishCollection.rodLength = lineExtension.multiplier - 1;
             speed.Initialise(speed.multiplier, speed.cost);
             lineExtension.Initialise(lineExtension.multiplier, lineExtension.cost);

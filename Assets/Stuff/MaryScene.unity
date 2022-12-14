@@ -439,11 +439,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 168e943f221154140a63ddab3c8a046f, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 168e943f221154140a63ddab3c8a046f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.17
+      value: -4.21
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 168e943f221154140a63ddab3c8a046f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -830,6 +830,7 @@ MonoBehaviour:
   wall: {fileID: 1036667431}
   walls: []
   startedFishing: 0
+  Music: {fileID: 308413937}
   mainMusic: {fileID: 8300000, guid: 561341c42d8958146aaf16bebcf905e6, type: 3}
 --- !u!114 &156914592
 MonoBehaviour:
@@ -2676,7 +2677,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &482123139
 MonoBehaviour:
@@ -2715,7 +2716,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e44ffbbdf4df53949aea4fb5c4a7dac7, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e44ffbbdf4df53949aea4fb5c4a7dac7, type: 3}
       propertyPath: m_LocalScale.x
@@ -2788,7 +2789,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e25e97eb039839244b245b6c1512d1f4, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e25e97eb039839244b245b6c1512d1f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3586,6 +3587,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638471134}
   m_CullTransparentMesh: 1
+--- !u!1001 &666470636
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.03
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+      propertyPath: m_Name
+      value: Character
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
 --- !u!1 &669737770
 GameObject:
   m_ObjectHideFlags: 0
@@ -3848,7 +3906,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
 --- !u!1 &777187733
 GameObject:
@@ -4020,7 +4078,7 @@ Transform:
   - {fileID: 1304267461}
   - {fileID: 404791849}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832356777
 GameObject:
@@ -4054,7 +4112,7 @@ Transform:
   - {fileID: 1555555677}
   - {fileID: 1354046021}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &870445401
 GameObject:
@@ -4695,7 +4753,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -497.07837, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4880,7 +4938,7 @@ Transform:
   - {fileID: 1994588243}
   - {fileID: 669737771}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1036667434
 MeshCollider:
@@ -6967,14 +7025,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec799c0d4b70124b8672c1c97016db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishSpawning: {fileID: 156914586}
   goldDisplay: {fileID: 374372952}
   GoldDisplay: {fileID: 967114026}
   fishLeftDisplay: {fileID: 32808701}
+  fishLeft: 4
   goldAmount: 0
   fishSize: 0
   hitJellyFish: 0
   currentFishAmount: 0
   collection: {fileID: 1529241841}
+  powerup: {fileID: 8300000, guid: b2d564aa2c215b046b753749c5d6f719, type: 3}
+  jellyfish: {fileID: 8300000, guid: 0988d45997e10e94fb9d098d5759b2dd, type: 3}
+  fish: {fileID: 0}
   scrolls:
   - {fileID: 1273288138}
   - {fileID: 1834117923}
@@ -8681,6 +8744,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702623323}
   m_CullTransparentMesh: 1
+--- !u!1 &1721066074 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c008e381fc584f46b9bfe35a819a5e4, type: 3}
+  m_PrefabInstance: {fileID: 666470636}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1721066075
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721066074}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81ed4ee60cadccd478019d6894ec7bf6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1743933211
 GameObject:
   m_ObjectHideFlags: 0
@@ -9147,7 +9235,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1838393891
 MonoBehaviour:
@@ -11196,7 +11284,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e51f91d1bbe1be6468d5b4e3bb899af4, type: 2}
     - target: {fileID: 1907906020159797143, guid: 179d577109e11c0418989a4c2644bc75, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1907906020159797143, guid: 179d577109e11c0418989a4c2644bc75, type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,7 +12,7 @@ namespace PortfolioProject
         public TextMeshProUGUI goldDisplay;
         public TextMeshProUGUI GoldDisplay;
         public TextMeshProUGUI fishLeftDisplay;
-        int fishLeft = 4;
+        public int fishLeft = 4;
         public float goldAmount;
         public float fishSize;
 
@@ -28,6 +28,7 @@ namespace PortfolioProject
         public static List<GameObject> collectedFish = new List<GameObject>();
 
         public AudioSource collection;
+        public AudioClip powerup, jellyfish, fish;
 
         public List<GameObject> scrolls = new List<GameObject>();
 
@@ -40,7 +41,6 @@ namespace PortfolioProject
 
         private void Update()
         {
-            Debug.Log(fishSpawning.fishAmount.Count);
             if (currentFishAmount != fishAmount && StartFishing.canFishSpawn && collectedFish != null)
             {
                 if (magnet)
@@ -80,7 +80,7 @@ namespace PortfolioProject
 
         void Fish()
         {
-            if (currentFishAmount == fishAmount && StartFishing.sellFish || hitJellyFish && !StartFishing.canFishSpawn)
+            if (currentFishAmount == fishAmount && StartFishing.sellFish)
             {
                 fishLeft = fishAmount;
                 foreach (var item in collectedFish)
@@ -121,13 +121,14 @@ namespace PortfolioProject
                 fishSpawning.fishAmount.Remove(other.gameObject);
                 collectedFish.Add(other.gameObject);
 
-                other.transform.localPosition = new Vector3(0.47f, (this.transform.position.y - 3f), other.transform.localPosition.z);
+                other.transform.localPosition = new Vector3(0.47f, (this.transform.position.y - 1f), other.transform.localPosition.z);
                 other.transform.eulerAngles = new Vector3(-90f, other.transform.rotation.y, -45);
                 other.transform.SetParent(this.gameObject.transform);
             }
             if(other.tag == "Magnet")
             {
                 StartCoroutine(PowerUp("magnet"));
+                collection.clip = powerup;
                 collection.Play();
                 fishSpawning.fishAmount.Remove(other.gameObject);
                 Destroy(other.gameObject);
@@ -136,12 +137,15 @@ namespace PortfolioProject
             {
                 StartCoroutine(PowerUp("boost"));
                 FishSpawning.waitTime = FishSpawning.waitTime / 2.5f;
+                collection.clip = powerup;
                 collection.Play();
                 fishSpawning.fishAmount.Remove(other.gameObject);
                 Destroy(other.gameObject);
             }
             if(other.tag == "JellyFish")
             {
+                collection.clip = jellyfish;
+                collection.Play();
                 float minusMoney = Random.Range((fishAmount * 3), (fishAmount * 5));
                 goldAmount -= minusMoney;
                 if(goldAmount < 0)
@@ -154,6 +158,12 @@ namespace PortfolioProject
                 goldDisplay.text = goldAmount.ToString("£0");
                 hitJellyFish = true;
                 fishSpawning.fishAmount.Remove(other.gameObject);
+
+                foreach (var item in collectedFish)
+                {
+                    Destroy(item.gameObject);
+                }
+                collectedFish.Clear();
             }
         }
 

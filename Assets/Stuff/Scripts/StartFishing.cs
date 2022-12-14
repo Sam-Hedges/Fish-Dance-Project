@@ -89,7 +89,7 @@ namespace PortfolioProject
 
         public void SpawnWalls()
         {
-            Debug.Log(FishCollection.rodLength);
+            fishCollection.fishLeftDisplay.text = fishCollection.fishLeft.ToString();
             if (!startedFishing) //can't spawn walls multiple times when not fishing
             {
                 sellFish = false;
