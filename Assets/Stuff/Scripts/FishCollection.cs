@@ -128,7 +128,7 @@ namespace PortfolioProject
                 fishSpawning.fishAmount.Remove(other.gameObject);
                 collectedFish.Add(other.gameObject);
 
-                other.transform.localPosition = new Vector3(0.47f, (this.transform.position.y - 1f), other.transform.localPosition.z);
+                other.transform.localPosition = new Vector3(0f, (this.transform.position.y - 1f), other.transform.localPosition.z);
                 other.transform.eulerAngles = new Vector3(-90f, other.transform.rotation.y, -45);
                 other.transform.SetParent(this.gameObject.transform);
             }
