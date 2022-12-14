@@ -91,6 +91,7 @@ namespace PortfolioProject
 
         public void SpawnWalls()
         {
+            fishCollection.currentFishAmount = 0;
             fishCollection.fishLeft = FishCollection.fishAmount;
             fishCollection.fishLeftDisplay.text = FishCollection.fishAmount.ToString();
             fishCanvas.SetActive(true);
@@ -159,7 +160,6 @@ namespace PortfolioProject
                     mainCanvas.SetActive(true);
                     sellFish = true;
                     fishSpawning.fishAmount.Clear();
-                    fishCollection.currentFishAmount = 0;
                     minusGoldDisplay.SetActive(false);
                     fishCanvas.SetActive(false);
                     Music.clip = mainMusic;
