@@ -7,6 +7,8 @@ namespace PortfolioProject
 {
     public class FishCollection : MonoBehaviour
     {
+        public FishSpawning fishSpawning;
+
         public TextMeshProUGUI goldDisplay;
         public TextMeshProUGUI GoldDisplay;
         public TextMeshProUGUI fishLeftDisplay;
@@ -31,21 +33,29 @@ namespace PortfolioProject
 
         public float totalMoneyEarnt;
 
+        private void Start()
+        {
+            StartCoroutine(IdleMoneyGain());
+        }
 
         private void Update()
         {
+            Debug.Log(fishSpawning.fishAmount.Count);
             if (currentFishAmount != fishAmount && StartFishing.canFishSpawn && collectedFish != null)
             {
                 if (magnet)
                 {
-                    foreach (var item in FishSpawning.fishAmount)
+                    foreach (var item in fishSpawning.fishAmount)
                     {
-                        item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z);
+                        if (item.gameObject.tag == "Fish")
+                        {
+                            item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z);
+                        }
                     }
                 }
                 if (boost)
                 {
-                    foreach (var item in FishSpawning.fishAmount)
+                    foreach (var item in fishSpawning.fishAmount)
                     {
                         item.GetComponent<FishMove>().speed = item.GetComponent<FishMove>().speed * 2.5f;
                     }
@@ -60,14 +70,16 @@ namespace PortfolioProject
             Fish();
         }
 
+        IEnumerator IdleMoneyGain()
+        {
+            goldAmount += (1 * fishAmount) / 2;
+            goldDisplay.text = goldAmount.ToString("£0");
+            yield return new WaitForSeconds(1.5f);
+            StartCoroutine(IdleMoneyGain());
+        }
+
         void Fish()
         {
-
-            foreach (var item in collectedFish)
-            {
-                item.GetComponent<FishMove>().reachedLocation = new Vector3(this.transform.position.x, this.transform.position.y, item.transform.position.z); //so the fish follows the rod to the top
-            }
-
             if (currentFishAmount == fishAmount && StartFishing.sellFish || hitJellyFish && !StartFishing.canFishSpawn)
             {
                 fishLeft = fishAmount;
@@ -105,14 +117,19 @@ namespace PortfolioProject
                 fishSize = other.transform.localScale.z;
                 currentFishAmount++;
                 other.GetComponent<Collider>().enabled = false; //this is so the fish can only add 1 to the counter when collided with
-                other.GetComponent<FishMove>().collected = true;
-                FishSpawning.fishAmount.Remove(other.gameObject);
+                other.GetComponent<FishMove>().enabled = false; //so the fish stops moving
+                fishSpawning.fishAmount.Remove(other.gameObject);
                 collectedFish.Add(other.gameObject);
+
+                other.transform.localPosition = new Vector3(0.47f, (this.transform.position.y - 3f), other.transform.localPosition.z);
+                other.transform.eulerAngles = new Vector3(-90f, other.transform.rotation.y, -45);
+                other.transform.SetParent(this.gameObject.transform);
             }
             if(other.tag == "Magnet")
             {
                 StartCoroutine(PowerUp("magnet"));
                 collection.Play();
+                fishSpawning.fishAmount.Remove(other.gameObject);
                 Destroy(other.gameObject);
             }
             if (other.tag == "Boost")
@@ -120,6 +137,7 @@ namespace PortfolioProject
                 StartCoroutine(PowerUp("boost"));
                 FishSpawning.waitTime = FishSpawning.waitTime / 2.5f;
                 collection.Play();
+                fishSpawning.fishAmount.Remove(other.gameObject);
                 Destroy(other.gameObject);
             }
             if(other.tag == "JellyFish")
@@ -135,6 +153,7 @@ namespace PortfolioProject
                 GoldDisplay.text = minusMoney.ToString("-0");
                 goldDisplay.text = goldAmount.ToString("£0");
                 hitJellyFish = true;
+                fishSpawning.fishAmount.Remove(other.gameObject);
             }
         }
 
@@ -142,7 +161,7 @@ namespace PortfolioProject
         public void CollectFish(GameObject fish, float moneyEarnt)
         {
             totalMoneyEarnt += moneyEarnt;
-            FishSpawning.fishAmount.Remove(fish);
+            fishSpawning.fishAmount.Remove(fish);
             Destroy(fish);
         }
 

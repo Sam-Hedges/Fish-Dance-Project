@@ -16,6 +16,9 @@ namespace PortfolioProject
         float leftOfScreen; //these are set to just be the water area so if you click ouside the rod won't move to your position
         float rightOfScreen;
 
+        float topDetector;
+        float bottomDetector;
+
         GameObject cam;
 
         private void Start()
@@ -68,14 +71,18 @@ namespace PortfolioProject
                 }
             }
 
-            if(this.transform.position.y <= bottomQuater)
+
+            bottomDetector = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.1f, dist)).y;
+            topDetector = Camera.main.ViewportToWorldPoint(new Vector3(0, 0.9f, dist)).y;
+
+            if (this.transform.position.y <= bottomDetector)
             {
-                Vector3 newPos = new Vector3(this.transform.position.x, bottomQuater - 0.1f, this.transform.position.z);
+                Vector3 newPos = new Vector3(this.transform.position.x, bottomDetector, this.transform.position.z);
                 this.transform.position = newPos;
             }
-            if (this.transform.position.y >= topQuater)
+            if (this.transform.position.y >= topDetector)
             {
-                Vector3 newPos = new Vector3(this.transform.position.x, topQuater + 0.1f, this.transform.position.z);
+                Vector3 newPos = new Vector3(this.transform.position.x, topDetector, this.transform.position.z);
                 this.transform.position = newPos;
             }
         }

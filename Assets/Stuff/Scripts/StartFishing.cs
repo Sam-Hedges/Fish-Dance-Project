@@ -32,12 +32,11 @@ namespace PortfolioProject
 
         public static bool sellFish = false;
 
-        AudioSource Music;
+        public AudioSource Music;
         public AudioClip mainMusic;
 
         void Start()
         {
-            Music = GetComponentInChildren<AudioSource>();
             cam = Camera.main.gameObject;
 
             walls.Add(wall);
@@ -63,7 +62,7 @@ namespace PortfolioProject
 
             if(!canFishSpawn)
             {
-                foreach (var item in FishSpawning.fishAmount)
+                foreach (var item in fishSpawning.fishAmount)
                 {
                     Destroy(item);
                 }
@@ -151,6 +150,7 @@ namespace PortfolioProject
                     wallSpawnPos = new Vector3(wall.transform.position.x, wall.transform.position.y - 11.36f, wall.transform.position.z);
                     mainCanvas.SetActive(true);
                     sellFish = true;
+                    fishSpawning.fishAmount.Clear();
                     minusGoldDisplay.SetActive(false);
                     fishCanvas.SetActive(false);
                     Music.clip = mainMusic;

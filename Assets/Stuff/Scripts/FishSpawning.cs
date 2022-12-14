@@ -1,3 +1,4 @@
+using PortfolioProject;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,7 @@ public class FishSpawning : MonoBehaviour
     float rightOfScreen;
     float leftOfScreen;
 
-    public static List<GameObject> fishAmount = new List<GameObject>();
+    public List<GameObject> fishAmount = new List<GameObject>();
 
     public List<Material> fishTypes = new List<Material>();
 
@@ -54,62 +55,67 @@ public class FishSpawning : MonoBehaviour
     }
 
 
-    public virtual void Spawn()
+    public void Spawn()
     {
         int spawnRotation = 0;
-        this.side = Random.Range(0, 2);
-
-        this.ySpawn = Random.Range(bottomOfScreen, topOfScreen);
-
-        switch (this.side)
+        if (StartFishing.canFishSpawn)
         {
-            case 0:
-                this.xSpawn = leftOfScreen;
-                spawnRotation = 90;
-                break;
-            case 1:
-                this.xSpawn = rightOfScreen;
-                spawnRotation = -90;
-                break;
+            this.side = Random.Range(0, 2);
+
+            this.ySpawn = Random.Range(bottomOfScreen, topOfScreen);
+
+            switch (this.side)
+            {
+                case 0:
+                    this.xSpawn = leftOfScreen;
+                    spawnRotation = 90;
+                    break;
+                case 1:
+                    this.xSpawn = rightOfScreen;
+                    spawnRotation = -90;
+                    break;
+            }
+
+            this.spawnLocation = new Vector3(this.xSpawn, this.ySpawn, this.zSpawn);
+
+            this.scale = Random.Range(0.4f, 1.5f);
+
+            this.type = Random.Range(1, 11);
+
+            switch (type)
+            {
+                default:
+                    newFish = Instantiate(fish, spawnLocation, Quaternion.Euler(0, spawnRotation, 0));
+
+                    //random size for fish
+                    newFish.transform.localScale = Vector3.one * scale;
+
+                    //random colour for fish
+                    int randomFish = Random.Range(0, fishTypes.Count);
+                    Material currentFishType = fishTypes[randomFish];
+                    newFish.GetComponentInChildren<SkinnedMeshRenderer>().material = currentFishType;
+
+                    fishAmount.Add(newFish);
+                    break;
+                case 2:
+                    newJellyFish = Instantiate(jellyfish, spawnLocation, Quaternion.identity);
+                    fishAmount.Add(newJellyFish);
+                    break;
+                case 3:
+                    int randomPowerUp = Random.Range(0, 2);
+                    switch (randomPowerUp)
+                    {
+                        case 0:
+                            newBubble = Instantiate(bubbles[0], spawnLocation, Quaternion.identity);
+                            fishAmount.Add(newBubble);
+                            break;
+                        case 1:
+                            newBubble = Instantiate(bubbles[1], spawnLocation, Quaternion.identity);
+                            fishAmount.Add(newBubble);
+                            break;
+                    }
+                    break;
+            }
         }
-
-        this.spawnLocation = new Vector3(this.xSpawn, this.ySpawn, this.zSpawn);
-
-        this.scale = Random.Range(0.4f, 1.5f);
-
-        this.type = Random.Range(1,11);
-
-        switch(type)
-        {
-            default:
-                newFish = Instantiate(fish, spawnLocation, Quaternion.Euler(0, spawnRotation, 0));
-
-                //random size for fish
-                newFish.transform.localScale = Vector3.one * scale;
-
-                //random colour for fish
-                int randomFish = Random.Range(0, fishTypes.Count);
-                Material currentFishType = fishTypes[randomFish];
-                newFish.GetComponentInChildren<SkinnedMeshRenderer>().material = currentFishType;
-
-                FishSpawning.fishAmount.Add(newFish);
-                break;
-            case 2:
-                newJellyFish = Instantiate(jellyfish, spawnLocation, Quaternion.identity);
-                break;
-            case 3:
-                int randomPowerUp = Random.Range(0, 2);
-                switch(randomPowerUp)
-                {
-                    case 0:
-                        newBubble = Instantiate(bubbles[0], spawnLocation, Quaternion.identity);
-                        break;
-                    case 1:
-                        newBubble = Instantiate(bubbles[1], spawnLocation, Quaternion.identity);
-                        break;
-                }
-                break;
-        }
-
     }
 }

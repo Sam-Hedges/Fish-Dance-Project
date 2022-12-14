@@ -17,9 +17,11 @@ namespace PortfolioProject
 
         public bool collected = false;
 
+        FishSpawning fishSpawning;
+
         private void Awake()
         {
-
+            fishSpawning = GameObject.Find("MainCode").GetComponent<FishSpawning>();
             var dist = (transform.position - Camera.main.transform.position).z;
             leftOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, dist)).x;
             rightOfScreen = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, dist)).x;
@@ -44,9 +46,9 @@ namespace PortfolioProject
                 this.transform.position = Vector3.MoveTowards(this.transform.position, this.reachedLocation, this.speed);
             }
 
-            if (this.transform.position == reachedLocation && !collected)
+            if (this.transform.position == reachedLocation)
             {
-                FishSpawning.fishAmount.Remove(this.gameObject);
+                fishSpawning.fishAmount.Remove(this.gameObject);
                 Destroy(this.gameObject);
             }
         }

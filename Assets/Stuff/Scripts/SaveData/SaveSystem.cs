@@ -33,8 +33,7 @@ namespace PortfolioProject
             {
                 currentTime = DateTime.Parse(data.currentTime);
                 TimeSpan idleTime = DateTime.Now - currentTime; //comparing the time saved (when you quit) to the time now to work out how much money you would have earnt
-                float moneyEarnt = (idleTime.Minutes * data.RodSpawnRates[0] * data.RodCarry[0]);
-                Debug.Log(moneyEarnt);
+                float moneyEarnt = ((idleTime.Minutes / 2) * data.RodSpawnRates[0] * data.RodCarry[0]);
 
                 if (idleTime.Minutes > 0)
                 {
