@@ -91,6 +91,8 @@ namespace PortfolioProject
 
         public void SpawnWalls()
         {
+            walls.Clear();
+            walls.Add(wall);
             fishCollection.currentFishAmount = 0;
             fishCollection.fishLeft = FishCollection.fishAmount;
             fishCollection.fishLeftDisplay.text = FishCollection.fishAmount.ToString();
@@ -105,7 +107,6 @@ namespace PortfolioProject
                     walls.Add(newWall);
                     wallSpawnPos = new Vector3(newWall.transform.position.x, newWall.transform.position.y - 11.36f, newWall.transform.position.z); //spawns it below the last wall
                 }
-                fishSpawning.bottomOfScreen = walls[walls.Count - 1].transform.position.y; //the bottom of the last wall in the array
 
                 camMovePos = new Vector3(cam.transform.position.x, 1, cam.transform.position.z); //moves the camera down to the centre of the first wall
                 rodMovePos = new Vector3(rod.transform.position.x, 0.86f, rod.transform.position.z); //moves rod to centre of screen
@@ -130,8 +131,8 @@ namespace PortfolioProject
                         float lastWallPos = walls[walls.Count - 1].transform.position.y + 0.75f;
                         camMovePos = new Vector3(cam.transform.position.x, (lastWallPos), cam.transform.position.z); //camera will move down to the last wall
                         rodMovePos = new Vector3(rod.transform.position.x, (walls[walls.Count - 1].gameObject.transform.Find("RodBottomLoc").position.y), rod.transform.position.z); //gets the local position of that walls rod bottom location game object - 11.26 as that's the walls relative position * by thr amount -1 (so if there's two walls it will only move down by 11.36)
-                        rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.03f);
-                        cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.03f);
+                        rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.1f);
+                        cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.1f);
                     }
                 }
             }
@@ -141,8 +142,8 @@ namespace PortfolioProject
         //will be called when you have collected the desired amount of fish
         void RodUp()
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.07f);
-            rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.07f);
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.01f);
+            rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.01f);
 
             if (!canFishSpawn)
             {

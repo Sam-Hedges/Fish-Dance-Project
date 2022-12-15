@@ -17,6 +17,10 @@ namespace PortfolioProject
         public float cost { get; set; }
         public float multiplier { get; set; }
 
+        public float multiplierIncrease { get; set; }
+
+        public string mStart { get; set; }
+
         public TextMeshProUGUI multiplierText, costText;
 
         //this is to set the values on the children scripts for each upgrade
@@ -72,14 +76,14 @@ namespace PortfolioProject
         {
             money.GetComponent<FishCollection>().goldAmount -= rodUpgrades.cost;
             rodUpgrades.cost += (1.25f * cost);
-            rodUpgrades.multiplier++;
+            rodUpgrades.multiplier += rodUpgrades.multiplierIncrease;
         }
 
         void ChangeDisplay(RodUpgrades rodUpgrades)
         {
-            money.GetComponent<FishCollection>().goldDisplay.text = money.GetComponent<FishCollection>().goldAmount.ToString("£0");
-            costText.text = rodUpgrades.cost.ToString();
-            multiplierText.text = rodUpgrades.multiplier.ToString("0.00");
+            money.GetComponent<FishCollection>().goldDisplay.text = money.GetComponent<FishCollection>().goldAmount.ToString("£0.00");
+            costText.text = rodUpgrades.cost.ToString("£0.00");
+            multiplierText.text = rodUpgrades.multiplier.ToString($"{rodUpgrades.mStart}");
         }
     }
 }

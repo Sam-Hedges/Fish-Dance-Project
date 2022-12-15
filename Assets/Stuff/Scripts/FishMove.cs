@@ -36,7 +36,6 @@ namespace PortfolioProject
                 moveTowards = leftOfScreen;
             }
             reachedLocation = new Vector3(moveTowards, this.transform.position.y, this.transform.position.z);
-            speed = Random.Range(0.02f, 0.08f);
         }
 
         private void Update()

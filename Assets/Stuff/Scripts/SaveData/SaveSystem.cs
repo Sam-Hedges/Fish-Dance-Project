@@ -33,7 +33,7 @@ namespace PortfolioProject
             {
                 currentTime = DateTime.Parse(data.currentTime);
                 TimeSpan idleTime = DateTime.Now - currentTime; //comparing the time saved (when you quit) to the time now to work out how much money you would have earnt
-                float moneyEarnt = ((idleTime.Minutes / 2) * data.RodSpawnRates[0] * data.RodCarry[0]);
+                float moneyEarnt = ((data.RodSpawnRates[0] * data.RodCarry[0]) * 1.5f * idleTime.Minutes);
 
                 if (idleTime.Minutes > 0)
                 {
@@ -82,6 +82,8 @@ namespace PortfolioProject
                 fishCarry.multiplier = 5f;
                 fishCarry.cost = 100;
             }
+            FishSpawning.lowerWait = (2) - spawnRates.multiplier;
+            FishSpawning.higherWait = (5) - spawnRates.multiplier;
             FishCollection.fishAmount = (int)fishCarry.multiplier - 1;
             fishCollection.fishLeft = (int)fishCarry.multiplier - 1;
             FishCollection.rodLength = lineExtension.multiplier - 1;

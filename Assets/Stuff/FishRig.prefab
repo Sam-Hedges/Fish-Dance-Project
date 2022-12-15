@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 6157906663657158350}
   - component: {fileID: 8011378085348887738}
   - component: {fileID: 6133938098168332703}
+  - component: {fileID: -6534130252569259034}
   m_Layer: 0
   m_Name: FishRig
   m_TagString: Fish
@@ -195,6 +196,20 @@ MonoBehaviour:
   moveTowards: 0
   speed: 0
   collected: 0
+--- !u!114 &-6534130252569259034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918343604769608361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b973c18204c5d4782f6e38966fe05c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 0
+  type: 0
 --- !u!1 &1940537169540365577
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ namespace PortfolioProject
         public GameObject ui;
         public GameObject pauseMenuUI;
         public GameObject settingsMenuUI;
+        public GameObject infoMenuUI;
 
         // this function removes the pause button, pulls up the menu and pauses the game 
         public void MainMenu()
@@ -22,6 +23,12 @@ namespace PortfolioProject
             mainMenu.SetActive(false);
             ui.SetActive(true);
             Time.timeScale = 1f;
+        }
+
+        public void Info()
+        {
+            pauseMenuUI.SetActive(false);
+            infoMenuUI.SetActive(true);
         }
 
         public void GameStart()
@@ -66,6 +73,7 @@ namespace PortfolioProject
         {
             pauseMenuUI.SetActive(true);
             settingsMenuUI.SetActive(false);
+            infoMenuUI.SetActive(false);
         }
     }
 }

@@ -63,7 +63,6 @@ namespace PortfolioProject
                     {
                         item.GetComponent<WaterScrollEffect>().ySpeed = 0.6f;
                     }
-                    boost = false;
                 }
             }
 
@@ -92,7 +91,7 @@ namespace PortfolioProject
             {
                 foreach (var item in collectedFish)
                 {
-                    float moneyEarnt = ((10 * fishSize) * rodLength);
+                    float moneyEarnt = ((10 * fishSize) * (item.GetComponent<FishMain>().type * 6));
                     CollectFish(item, moneyEarnt);
                 }
                 collectedFish.Clear();
@@ -121,14 +120,14 @@ namespace PortfolioProject
             {
                 fishLeft -= 1;
                 fishLeftDisplay.text = fishLeft.ToString();
-                fishSize = other.transform.localScale.z;
+                fishSize = other.GetComponent<FishMain>().size;
                 currentFishAmount++;
                 other.GetComponent<Collider>().enabled = false; //this is so the fish can only add 1 to the counter when collided with
                 other.GetComponent<FishMove>().enabled = false; //so the fish stops moving
                 fishSpawning.fishAmount.Remove(other.gameObject);
                 collectedFish.Add(other.gameObject);
 
-                other.transform.localPosition = new Vector3(0f, (this.transform.position.y - 1f), other.transform.localPosition.z);
+                other.transform.localPosition = new Vector3(0f, (this.transform.position.y - 1f), other.transform.localPosition.z); //makes the fish a child of the rod
                 other.transform.eulerAngles = new Vector3(-90f, other.transform.rotation.y, -45);
                 other.transform.SetParent(this.gameObject.transform);
             }
@@ -208,6 +207,13 @@ namespace PortfolioProject
                     this.boost = false;
                     break;
             }
+        }
+
+        [ContextMenu("AddMoney")]
+        public void AddMoney()
+        {
+            goldAmount += 1000;
+            goldDisplay.text = goldAmount.ToString("£0");
         }
     }
 }
