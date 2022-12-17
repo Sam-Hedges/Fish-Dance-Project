@@ -34,6 +34,8 @@ namespace PortfolioProject
 
         public float totalMoneyEarnt;
 
+        public GameObject greenCanvas, yellowCanvas;
+
         private void Start()
         {
             StartCoroutine(IdleMoneyGain());
@@ -41,10 +43,16 @@ namespace PortfolioProject
 
         private void Update()
         {
+            if(!magnet || !boost)
+            {
+                greenCanvas.SetActive(false);
+                yellowCanvas.SetActive(false);
+            }
             if (currentFishAmount != fishAmount && StartFishing.canFishSpawn && collectedFish != null)
             {
                 if (magnet)
                 {
+                    greenCanvas.SetActive(true);
                     foreach (var item in fishSpawning.fishAmount)
                     {
                         if (item.gameObject.tag == "Fish")
@@ -55,9 +63,10 @@ namespace PortfolioProject
                 }
                 if (boost)
                 {
+                    yellowCanvas.SetActive(true);
                     foreach (var item in fishSpawning.fishAmount)
                     {
-                        item.GetComponent<FishMove>().speed = item.GetComponent<FishMove>().speed * 2.5f;
+                        item.GetComponent<FishMove>().speed = item.GetComponent<FishMove>().speed * 1.1f;
                     }
                     foreach (var item in scrolls)
                     {
@@ -119,6 +128,8 @@ namespace PortfolioProject
             if(other.tag == "Fish")
             {
                 fishLeft -= 1;
+                collection.clip = fish;
+                collection.Play();
                 fishLeftDisplay.text = fishLeft.ToString();
                 fishSize = other.GetComponent<FishMain>().size;
                 currentFishAmount++;

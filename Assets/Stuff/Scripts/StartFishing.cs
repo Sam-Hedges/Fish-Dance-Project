@@ -142,8 +142,8 @@ namespace PortfolioProject
         //will be called when you have collected the desired amount of fish
         void RodUp()
         {
-            cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.01f);
-            rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.01f);
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, camMovePos, 0.07f);
+            rod.transform.position = Vector3.MoveTowards(rod.transform.position, rodMovePos, 0.07f);
 
             if (!canFishSpawn)
             {
