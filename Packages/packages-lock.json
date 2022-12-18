@@ -150,17 +150,6 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       }
     },
-    "com.unity.render-pipelines.lightweight": {
-      "version": "6.9.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.postprocessing": "2.1.6",
-        "com.unity.render-pipelines.core": "6.9.0",
-        "com.unity.shadergraph": "6.9.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.render-pipelines.universal": {
       "version": "12.1.7",
       "depth": 0,
