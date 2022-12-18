@@ -55,8 +55,8 @@ Interpolators Vertex(Attributes input)
 
     // These helper functions, found in URP/ShaderLib/ShaderVariablesFunctions.hlsl
     // transform object space values into world and clip space
-    float3 waveVertexPosition = CalculateWave(input.positionOS, _WaveSpeed, _WaveFrequency, _WaveAmplitude);
-    VertexPositionInputs posnInputs = GetVertexPositionInputs(waveVertexPosition);
+    WaveData waveData = CalculateWave(input.positionOS, _WaveSpeed, _WaveFrequency, _WaveAmplitude);
+    VertexPositionInputs posnInputs = GetVertexPositionInputs(waveData.waveVertexPosition);
     VertexNormalInputs normInputs = GetVertexNormalInputs(input.normalOS);
 
     output.positionCS = GetShadowCasterPositionCS(posnInputs.positionWS, normInputs.normalWS);

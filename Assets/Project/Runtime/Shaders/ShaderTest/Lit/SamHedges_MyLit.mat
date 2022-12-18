@@ -34,14 +34,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 2800000, guid: f87d53fcaf34530488b706ee35d9b519, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.01, y: 0.01}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BumpStrength: 1
-    - _DetailScale: 0.68
-    - _DetailStrength: 0.711
-    - _ScrollSpeed: 2.37
+    - _BumpStrength: 15.89
+    - _DetailScale: 0.11
+    - _DetailStrength: 0.47
+    - _ScrollSpeed: -0.02
     - _Smoothness: 1
     - _WaveAmplitude: 0.37
     - _WaveFrequency: 5.62

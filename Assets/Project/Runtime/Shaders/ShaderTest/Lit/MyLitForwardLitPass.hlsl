@@ -30,6 +30,7 @@ struct Attributes
 {
     float3 positionOS : POSITION; // Position in object space
     float3 normalOS : NORMAL; // Normal in object space
+    float4 tangetOS : TANGENT; // Tangent in object space
     float2 uv : TEXCOORD0; // Material texture UVs
 };
 
@@ -49,6 +50,7 @@ struct Interpolators
     float3 normalWS : TEXCOORD1; // Normal in world space
     float3 positionWS : TEXCOORD2;
     float4 screenPosition : TEXCOORD3;
+    float3 normalOS : TEXCOORD4; // Normal in object space
 };
 
 float3 NormalStrength(float3 In, float Strength)
@@ -77,15 +79,20 @@ Interpolators Vertex(Attributes input)
     // These helper functions, found in URP/ShaderLib/ShaderVariablesFunctions.hlsl
     // transform object space values into world and clip space
     // CalulateWaves is a custom function that calculates the wave movement
-    float3 waveVertexPosition = CalculateWave(input.positionOS, _WaveSpeed, _WaveFrequency, _WaveAmplitude);
-    VertexPositionInputs posnInputs = GetVertexPositionInputs(waveVertexPosition);
+    WaveData waveData = CalculateWave(input.positionOS, _WaveSpeed, _WaveFrequency, _WaveAmplitude);
+    VertexPositionInputs posnInputs = GetVertexPositionInputs(waveData.waveVertexPosition);
     VertexNormalInputs normInputs = GetVertexNormalInputs(input.normalOS);
-    
 
+    if (normInputs.normalWS.y == 1)
+    {
+        normInputs.normalWS += (waveData.waveVertexNormal * 0.2);   
+    }
+    
     // Pass position, orientation and normal data to the fragment function
     output.positionCS = posnInputs.positionCS;
     output.uv = TRANSFORM_TEX(input.uv, _ColourMap);
     output.normalWS = normInputs.normalWS;
+    output.normalOS = input.normalOS;
     output.positionWS = posnInputs.positionWS;
     output.screenPosition = ComputeScreenPos(output.positionCS);
     
@@ -99,6 +106,11 @@ float4 Fragment(Interpolators input) : SV_TARGET
 {
     float2 uv = input.uv;
 
+    float3 dx = ddx(input.positionWS);
+    float3 dy = ddy(input.positionWS);
+    float3 N = normalize(cross(dx, dy));
+    //input.normalOS = -N;
+    
     // SampleSceneDepth function with the Screen coords returns the Raw Scene Depth value
     float rawDepth = SampleSceneDepth(input.screenPosition.xy / input.screenPosition.w);
     // LinearEyeDepth function converts the Raw Scene Depth value to Linear Eye Depth
@@ -145,7 +157,7 @@ float4 Fragment(Interpolators input) : SV_TARGET
     // Hence the Normalize method, which can be slow, since it has an expensive square root calculation
     // but I think this step is worth the performance cost for smoother lighting. (especially noticeable on specular highlights)
     //lightingInput.normalWS = UnityObjectToWorldNormal(normalize(finalNormal);
-    lightingInput.normalWS = normalize(input.normalWS);
+    lightingInput.normalWS = normalize(input.normalWS - finalNormal);
     
     // Computes a standard lighting algorithm called the Blinn-Phong lighting model
     float4 finalColour = UniversalFragmentPBR(lightingInput, surfaceInput);
@@ -153,5 +165,6 @@ float4 Fragment(Interpolators input) : SV_TARGET
     // Apply Ambient Lighting
     float3 ambientColour = float3(unity_SHAr.w, unity_SHAg.w, unity_SHAb.w);
     finalColour.rgb += ambientColour * 2 * colourSample - colourSample;
+    //return float4(normalize(input.normalWS - finalNormal), 1);
     return finalColour;
 }

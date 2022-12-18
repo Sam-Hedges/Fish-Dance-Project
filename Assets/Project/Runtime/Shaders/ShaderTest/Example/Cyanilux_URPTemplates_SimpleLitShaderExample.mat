@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaTestToggle: 0
-    - _Cutoff: 0.5
+    - _Cutoff: 0.81
     - _Emission: 0
     - _GlossSource: 0
     - _NormalMapToggle: 0
