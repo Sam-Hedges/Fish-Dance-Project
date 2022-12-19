@@ -67,7 +67,8 @@ using UnityEngine.UI;
                 }
             });
         }
-
+        
+        /*
         void OnGUI() {
             if (isSnapping) {
                 return;
@@ -79,6 +80,7 @@ using UnityEngine.UI;
                 Previous();
             }
         }
+        */
 
         public void Next() {
             if (scrolling) {

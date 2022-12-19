@@ -16,7 +16,7 @@ Shader "SamHedges/LiquidUI" {
 			_DissolveAmount("Dissolve Amount", Range(0,1)) = 0
 			_Rotation("Rotation", Float) = 0
 			_NoiseScale("Noise Scale", Float) = 20
-			_NoiseIntensity("_NoiseIntensity", Range(0,1)) = 1
+			_NoiseIntensity("Noise Intensity", Range(0,1)) = 1
 			_Spherize("Spherize", Int) = 0
 			_BorderDistortionAmount("Border Distortion Amount", Range(0,0.2)) = 0
 			_NoiseRoundFactor("Noise Round Factor", Range(1,255)) = 50

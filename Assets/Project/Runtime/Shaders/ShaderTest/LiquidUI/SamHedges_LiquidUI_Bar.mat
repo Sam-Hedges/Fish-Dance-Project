@@ -26,8 +26,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BorderDistortionAmount: 0.0163
-    - _BorderNoiseScale: 0.9
+    - _BorderDistortionAmount: 0.0177
+    - _BorderNoiseScale: 0.5
     - _DissolveAmount: 0
     - _DissolveTransition: 0
     - _MovingAmount: 0
@@ -35,7 +35,7 @@ Material:
     - _NoiseRoundFactor: 240.4
     - _NoiseScale: 6.6
     - _PixelSize: 1000
-    - _Progress: 0.382
+    - _Progress: 0.518
     - _Ratio: 4.4
     - _Rotation: 0
     - _Spherize: 0

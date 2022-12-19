@@ -92,6 +92,24 @@ public class LiquidBar : MonoBehaviour
     private Vector2 pixelSize;
     private Vector2 ratio;
     private bool onTransition;
+    
+    // Cached Property IDs
+    private static readonly int MovingAmount = Shader.PropertyToID("_MovingAmount");
+    private static readonly int Progress = Shader.PropertyToID("_Progress");
+    private static readonly int DissolveTransition = Shader.PropertyToID("_DissolveTransition");
+    private static readonly int DissolveAmount = Shader.PropertyToID("_DissolveAmount");
+    private static readonly int Rotation1 = Shader.PropertyToID("_Rotation");
+    private static readonly int PixelSize = Shader.PropertyToID("_PixelSize");
+    private static readonly int Ratio = Shader.PropertyToID("_Ratio");
+    private static readonly int BorderNoiseScale = Shader.PropertyToID("_BorderNoiseScale");
+    private static readonly int Colour = Shader.PropertyToID("_Colour");
+    private static readonly int NoiseScale = Shader.PropertyToID("_NoiseScale");
+    private static readonly int Spherize = Shader.PropertyToID("_Spherize");
+    private static readonly int NoiseIntensity = Shader.PropertyToID("_NoiseIntensity");
+    private static readonly int BorderDistortionAmount = Shader.PropertyToID("_BorderDistortionAmount");
+    private static readonly int BackgroundColour = Shader.PropertyToID("_BackgroundColour");
+    private static readonly int NoiseRoundFactor = Shader.PropertyToID("_NoiseRoundFactor");
+
     #endregion
 
     #region Start & Update
@@ -100,7 +118,7 @@ public class LiquidBar : MonoBehaviour
     {
         if (instanciatedMaterial)
         {
-            material = new Material(Shader.Find("SamHedges/LiquidUI"));
+            material = new Material(material);
             UpdateMaterial();
             GetComponent<Image>().material = material;
         }
@@ -128,12 +146,12 @@ public class LiquidBar : MonoBehaviour
 
         float fillAmountDif = Mathf.Abs(currentFillAmount - targetFillAmount);
 
-        material.SetFloat("_MovingAmount", fillAmountDif * borderLightReactivity);
+        material.SetFloat(MovingAmount, fillAmountDif * borderLightReactivity);
 
         if (!onTransition)
             currentFillAmount = Mathf.Lerp(currentFillAmount, targetFillAmount, Time.deltaTime * smoothness);
 
-        material.SetFloat("_Progress", currentFillAmount);
+        material.SetFloat(Progress, currentFillAmount);
     }
 
     #endregion
@@ -154,7 +172,7 @@ public class LiquidBar : MonoBehaviour
         while (t < 1)
         {
             t += Time.deltaTime;
-            material.SetFloat("_DissolveTransition", t);
+            material.SetFloat(DissolveTransition, t);
             yield return null;
         }
 
@@ -165,12 +183,12 @@ public class LiquidBar : MonoBehaviour
         while (t < 1)
         {
             t += Time.deltaTime;
-            material.SetFloat("_DissolveAmount", t);
+            material.SetFloat(DissolveAmount, t);
             yield return null;
         }
 
-        material.SetFloat("_DissolveAmount", 0);
-        material.SetFloat("_DissolveTransition", 0);
+        material.SetFloat(DissolveAmount, 0);
+        material.SetFloat(DissolveTransition, 0);
 
         onTransition = false;
     }
@@ -182,40 +200,40 @@ public class LiquidBar : MonoBehaviour
         switch (rotation)
         {
             case Rotation.Down:
-                material.SetFloat("_Rotation", 270);
+                material.SetFloat(Rotation1, 270);
                 break;
             case Rotation.Up:
-                material.SetFloat("_Rotation", 90);
+                material.SetFloat(Rotation1, 90);
                 break;
             case Rotation.Left:
-                material.SetFloat("_Rotation", 180);
+                material.SetFloat(Rotation1, 180);
                 break;
             case Rotation.Right:
-                material.SetFloat("_Rotation", 0);
+                material.SetFloat(Rotation1, 0);
                 break;
         }
 
         pixelSize = mask.preserveAspect ? mask.sprite.rect.size * resolution : GetComponent<RectTransform>().sizeDelta * resolution;
         ratio = spherize ? Vector2.one : pixelSize.normalized;
 
-        material.SetVector("_PixelSize", pixelSize);
-        material.SetVector("_Ratio", ratio);
-        material.SetFloat("_BorderNoiseScale", borderNoiseScale);
-        material.SetColor("_Colour", barColor);
-        material.SetFloat("_NoiseScale", insideNoiseScale);
-        material.SetFloat("_Spherize", spherize ? 1 : 0);
-        material.SetFloat("_NoiseIntensity", insideNoiseIntensity);
-        material.SetFloat("_BorderDistortionAmount", borderDistortionAmount);
-        material.SetColor("_BackgroundColour", backgroundColor);
-        material.SetFloat("_NoiseRoundFactor", insideNoiseColorVariation);
+        material.SetVector(PixelSize, pixelSize);
+        material.SetVector(Ratio, ratio);
+        material.SetFloat(BorderNoiseScale, borderNoiseScale);
+        material.SetColor(Colour, barColor);
+        material.SetFloat(NoiseScale, insideNoiseScale);
+        material.SetFloat(Spherize, spherize ? 1 : 0);
+        material.SetFloat(NoiseIntensity, insideNoiseIntensity);
+        material.SetFloat(BorderDistortionAmount, borderDistortionAmount);
+        material.SetColor(BackgroundColour, backgroundColor);
+        material.SetFloat(NoiseRoundFactor, insideNoiseColorVariation);
     }
 
     private void OnApplicationQuit()
     {
         // If the transition occurs and the game is stopped, reset the transition effect.
 
-        material.SetFloat("_DissolveAmount", 0);
-        material.SetFloat("_DissolveTransition", 0);
+        material.SetFloat(DissolveAmount, 0);
+        material.SetFloat(DissolveTransition, 0);
     }
 
     #endregion
