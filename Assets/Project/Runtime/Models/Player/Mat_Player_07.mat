@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Toon
+  m_Name: Mat_Player_07
   m_Shader: {fileID: -6465566751694194690, guid: e5c040e0ae899394fa82d2cbcc0bc7ad, type: 3}
   m_ValidKeywords:
   - MAIN_LIGHT_CALCULATE_SHADOWS
@@ -16,9 +16,9 @@ Material:
   - _SHADOWS_SOFT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses: []
@@ -81,30 +81,30 @@ Material:
     - Boolean_7C52CE99: 0
     - Boolean_86DF3613: 0
     - Boolean_909F7151: 0
-    - Boolean_ABC20F68: 0
+    - Boolean_ABC20F68: 1
     - Boolean_E8AE0991: 0
     - Boolean_F64A7087: 0
     - Boolean_FE3406E: 0
     - ENABLE_BENDING: 0
-    - Vector1_16DC6F7A: 0
-    - Vector1_19FC1A7B: 0
+    - Vector1_16DC6F7A: 0.413
+    - Vector1_19FC1A7B: 0.5
     - Vector1_1AA3B09C: 1
-    - Vector1_1D4AF374: 1
+    - Vector1_1D4AF374: 5
     - Vector1_31A8EB6: 2.5
     - Vector1_50F2A378: 2.3
     - Vector1_5A903150: 0
     - Vector1_611A87C9: 1
-    - Vector1_66153E8A: 0.75
+    - Vector1_66153E8A: 2.5
     - Vector1_69E54CD0: 0.5
     - Vector1_6FE66511: 1
     - Vector1_8B61D42C: 1
     - Vector1_A939F84B: 0.75
     - Vector1_ABAFE9CD: 0
     - Vector1_B5AE4331: 1.5
-    - Vector1_CD306BAC: 0
+    - Vector1_CD306BAC: 0.647
     - Vector1_D33B50B: 4
-    - Vector1_DAA42A8: 0
-    - Vector1_E31311DF: 0
+    - Vector1_DAA42A8: 1.73
+    - Vector1_E31311DF: -0.3
     - Vector1_E69985F9: 1
     - Vector1_F4EC345A: 1
     - Vector1_FE978EB1: 0.002
@@ -115,7 +115,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 0
     - _OUTLINE_ON: 0
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _SPECULAR_ON: 1
     - _SrcBlend: 1
@@ -128,7 +128,7 @@ Material:
     - Color_5F9A54C8: {r: 1, g: 1, b: 1, a: 0}
     - Color_6A1068C4: {r: 0, g: 0, b: 0, a: 0}
     - Color_E657C5AC: {r: 1, g: 1, b: 1, a: 0}
-    - Color_F35B164F: {r: 0, g: 0, b: 0, a: 0}
+    - Color_F35B164F: {r: 1, g: 1, b: 1, a: 0}
     - Vector2_3845AF61: {r: 10, g: 10, b: 0, a: 0}
     - Vector2_7FBD56D2: {r: 10, g: 10, b: 0, a: 0}
     - Vector2_C8BA1AF9: {r: 0, g: 0, b: 0, a: 0}

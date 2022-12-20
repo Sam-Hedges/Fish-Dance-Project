@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Toon
+  m_Name: Mat_Player_01
   m_Shader: {fileID: -6465566751694194690, guid: e5c040e0ae899394fa82d2cbcc0bc7ad, type: 3}
   m_ValidKeywords:
   - MAIN_LIGHT_CALCULATE_SHADOWS
@@ -16,9 +16,9 @@ Material:
   - _SHADOWS_SOFT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses: []
@@ -115,7 +115,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 0
     - _OUTLINE_ON: 0
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _SPECULAR_ON: 1
     - _SrcBlend: 1
@@ -124,7 +124,7 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 1
     m_Colors:
-    - Color_5EA16A47: {r: 1, g: 1, b: 1, a: 1}
+    - Color_5EA16A47: {r: 0.5568628, g: 0.53333336, b: 0.53333336, a: 1}
     - Color_5F9A54C8: {r: 1, g: 1, b: 1, a: 0}
     - Color_6A1068C4: {r: 0, g: 0, b: 0, a: 0}
     - Color_E657C5AC: {r: 1, g: 1, b: 1, a: 0}

@@ -1625,7 +1625,7 @@
     "m_VertexContext": {
         "m_Position": {
             "x": 1671.0,
-            "y": 449.99993896484377
+            "y": 478.9999694824219
         },
         "m_Blocks": [
             {
@@ -5487,10 +5487,10 @@
     "m_ActiveSubTarget": {
         "m_Id": "d7ac8e8363b147d082937cc2da55ac61"
     },
-    "m_AllowMaterialOverride": false,
+    "m_AllowMaterialOverride": true,
     "m_SurfaceType": 0,
     "m_ZTestMode": 4,
-    "m_ZWriteControl": 0,
+    "m_ZWriteControl": 1,
     "m_AlphaMode": 0,
     "m_RenderFace": 2,
     "m_AlphaClip": true,
@@ -9633,6 +9633,9 @@
             "m_Id": "ae315dbb9ed6318baf07a661070a26cc"
         },
         {
+            "m_Id": "fe465e9f26c6431ba95a49344aa5985a"
+        },
+        {
             "m_Id": "62b3852ee5e2b9859c5fb8ff92d72d5e"
         },
         {
@@ -9659,7 +9662,8 @@
         "aa55c36d-24af-41ab-b52b-43763aff48fb",
         "0ac283d7-534d-44f9-b76c-b7682fdd12c2",
         "4dd690c8-71d1-4cff-879c-134136ef08ce",
-        "fba82313-803c-4cc2-bdb1-3cde97f40b6d"
+        "fba82313-803c-4cc2-bdb1-3cde97f40b6d",
+        "4f2fc84f-2ccf-4d8f-8d64-2021c3bdfcb8"
     ],
     "m_PropertyIds": [
         1912519339,
@@ -9667,7 +9671,8 @@
         -839220675,
         -292567060,
         789044473,
-        1200910268
+        1200910268,
+        -1686356530
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -10651,5 +10656,28 @@
         "x": 0.0,
         "y": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "fe465e9f26c6431ba95a49344aa5985a",
+    "m_Id": -1686356530,
+    "m_DisplayName": "NormalGen",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_NormalGen",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
 }
 

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat_Toon
+  m_Name: Mat_Boat
   m_Shader: {fileID: -6465566751694194690, guid: e5c040e0ae899394fa82d2cbcc0bc7ad, type: 3}
   m_ValidKeywords:
   - MAIN_LIGHT_CALCULATE_SHADOWS
@@ -18,7 +18,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: TransparentCutout
   disabledShaderPasses: []
@@ -50,11 +50,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_B4544E6F:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 186fa3617aa8f2a428bfec2b8222abc4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_B667F724:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 44055631708ce824aa0ca033fbbafd43, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_DC139D8A:
@@ -115,7 +115,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 0
     - _OUTLINE_ON: 0
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _SPECULAR_ON: 1
     - _SrcBlend: 1
