@@ -25,11 +25,51 @@ public class Ability : MonoBehaviour
         playerManager.ExecuteAbility(this);
     }
     
+    public void DisableButton()
+    {
+        pauseButton = true;
+
+        StartCoroutine(SetButtonStatus(true));
+    }
+    
+    public void EnableButton()
+    {
+        pauseButton = false;
+    }
+    
     private void Start()
     {
-        Coroutine recharge = StartCoroutine(Recharge());    
+        StartCoroutine(Recharge());    
     }
 
+    private IEnumerator SetButtonStatus(bool status)
+    {
+        bool ensureRunsOnce = true;
+        
+        while (ensureRunsOnce)
+        {
+            if (!playerManager.GetAnimationState().IsName("Breakdance Ready"))
+            {
+                do
+                {
+                    pauseButton = status;
+                    
+                    if (playerManager.GetAnimationState().IsName("Breakdance Ready"))
+                    {
+                        ensureRunsOnce = false;
+                    }
+                    
+                    yield return new WaitForSeconds(1);
+
+                } while (!playerManager.GetAnimationState().IsName("Breakdance Ready"));
+                
+            }
+            yield return null;
+        }
+
+        pauseButton = !status;
+    }
+    
     private IEnumerator Recharge() {
         while (true) 
         {
@@ -41,7 +81,7 @@ public class Ability : MonoBehaviour
             }
 
             barUI.targetFillAmount = 1;
-            button.interactable = true;
+            button.interactable = !pauseButton;
             
             yield return null;
         }
